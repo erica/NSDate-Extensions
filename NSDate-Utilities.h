@@ -4,6 +4,7 @@
 //
 //  Created by Erica Sadun on 2/4/10.
 //  Copyright 2010 Up To No Good, Inc.. All rights reserved.
+//  License tbd
 //
 
 #import <Foundation/Foundation.h>
