@@ -15,10 +15,10 @@
 #define D_YEAR		31556926
 
 @interface NSDate (Utilities)
-+ (NSDate *) dateWithDaysFromNow: (NSUInteger) days;
-+ (NSDate *) dateWithDaysBeforeNow: (NSUInteger) days;
 + (NSDate *) dateTomorrow;
 + (NSDate *) dateYesterday;
++ (NSDate *) dateWithDaysFromNow: (NSUInteger) days;
++ (NSDate *) dateWithDaysBeforeNow: (NSUInteger) days;
 + (NSDate *) dateWithHoursFromNow: (NSUInteger) dHours;
 + (NSDate *) dateWithHoursBeforeNow: (NSUInteger) dHours;
 + (NSDate *) dateWithMinutesFromNow: (NSUInteger) dMinutes;
@@ -40,12 +40,20 @@
 - (BOOL) isEarlierThanDate: (NSDate *) aDate;
 - (BOOL) isLaterThanDate: (NSDate *) aDate;
 
-- (NSDate *) daysAfterDate: (NSUInteger) dDays;
-- (NSDate *) daysBeforeDate: (NSUInteger) dDays;
-- (NSDate *) hoursAfterDate: (NSUInteger) dHours;
-- (NSDate *) hoursBeforeDate: (NSUInteger) dHours;
-- (NSDate *) minutesAfterDate: (NSUInteger) dMinutes;
-- (NSDate *) minutesBeforeDate: (NSUInteger) dMinutes;
+- (NSDate *) dateByAddingDays: (NSUInteger) dDays;
+- (NSDate *) dateBySubtractingDays: (NSUInteger) dDays;
+- (NSDate *) dateByAddingHours: (NSUInteger) dHours;
+- (NSDate *) dateBySubtractingHours: (NSUInteger) dHours;
+- (NSDate *) dateByAddingMinutes: (NSUInteger) dMinutes;
+- (NSDate *) dateBySubtractingMinutes: (NSUInteger) dMinutes;
+- (NSDate *) dateAtStartOfDay;
+
+- (NSInteger) daysAfterDate: (NSDate *) aDate;
+- (NSInteger) daysBeforeDate: (NSDate *) aDate;
+- (NSInteger) hoursAfterDate: (NSDate *) aDate;
+- (NSInteger) hoursBeforeDate: (NSDate *) aDate;
+- (NSInteger) minutesAfterDate: (NSDate *) aDate;
+- (NSInteger) minutesBeforeDate: (NSDate *) aDate;
 
 - (NSInteger) nearestHour;
 - (NSInteger) hour;

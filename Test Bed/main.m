@@ -25,11 +25,34 @@
 	
 	NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
 	formatter.dateFormat = @"MM-dd-yyyy";
-	NSDate *day1 = [formatter dateFromString:@"12-31-2009"];
+	NSDate *testDate1 = [formatter dateFromString:@"12-31-2009"];
 	
 	NSLog(@"Today: %@", [NSDate date]);
 	NSLog(@"Tomorrow: %@", [NSDate dateTomorrow]);
 	NSLog(@"Yesterday: %@", [NSDate dateYesterday]);
+	
+	NSLog(@"2 days from now: %@", [NSDate dateWithDaysFromNow:2]);
+	NSLog(@"5 days ago: %@", [NSDate dateWithDaysBeforeNow:5]);
+	NSLog(@"3 hours from now: %@", [NSDate dateWithHoursFromNow:3]);
+	NSLog(@"3 hours ago: %@", [NSDate dateWithHoursBeforeNow:3]);
+	
+	NSLog(@"Days since 12/31: %d", [[NSDate date] daysAfterDate:testDate1]);
+	
+	NSLog(@"Is tomorrow? (YES) %@", [[NSDate dateTomorrow] isTomorrow] ? @"Yes" : @"No");
+	NSLog(@"Is yesterday? (NO) %@", [[NSDate dateTomorrow] isYesterday] ? @"Yes" : @"No");
+	NSLog(@"Is today? (YES) %@", [[NSDate dateWithMinutesFromNow:5] isToday] ? @"Yes" : @"No");
+	
+	for (int i = 0; i < 9; i++)
+		NSLog(@"Day: %@ is this week: %@", [formatter stringFromDate:[NSDate dateWithDaysFromNow:i]], [[NSDate dateWithDaysFromNow:i] isThisWeek] ? @"Yes" : @"No");
+	
+	NSDate *testDate2 = [formatter dateFromString:@"01-01-2010"];
+	NSLog(@"Comparing 12/31/09 against 1/1/10. Same week?: %@", [testDate1 isSameWeekAsDate:testDate2] ? @"Yes" : @"No");
+	
+	NSLog(@"12/31 earlier? %@ Later? %@",
+		  [testDate1 isEarlierThanDate:testDate2] ? @"Yes" :  @"No",
+		  [testDate1 isLaterThanDate:testDate2] ? @"Yes" :  @"No");
+	
+	
 }
 @end
 
