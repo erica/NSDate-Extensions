@@ -17,8 +17,8 @@
 @interface NSDate (Utilities)
 + (NSDate *) dateWithDaysFromNow: (NSUInteger) days;
 + (NSDate *) dateWithDaysBeforeNow: (NSUInteger) days;
-+ (NSDate *) tomorrow;
-+ (NSDate *) yesterday;
++ (NSDate *) dateTomorrow;
++ (NSDate *) dateYesterday;
 + (NSDate *) dateWithHoursFromNow: (NSUInteger) dHours;
 + (NSDate *) dateWithHoursBeforeNow: (NSUInteger) dHours;
 + (NSDate *) dateWithMinutesFromNow: (NSUInteger) dMinutes;

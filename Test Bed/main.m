@@ -28,8 +28,8 @@
 	NSDate *day1 = [formatter dateFromString:@"12-31-2009"];
 	
 	NSLog(@"Today: %@", [NSDate date]);
-	NSLog(@"Tomorrow: %@", [NSDate tomorrow]);
-	NSLog(@"Yesterday: %@", [NSDate yesterday]);
+	NSLog(@"Tomorrow: %@", [NSDate dateTomorrow]);
+	NSLog(@"Yesterday: %@", [NSDate dateYesterday]);
 }
 @end
 

@@ -25,12 +25,12 @@
 	return [NSDate dateWithDaysFromNow: (days * -1)];
 }
 
-+ (NSDate *) tomorrow
++ (NSDate *) dateTomorrow
 {
 	return [NSDate dateWithDaysFromNow:1];
 }
 
-+ (NSDate *) yesterday
++ (NSDate *) dateYesterday
 {
 	return [NSDate dateWithDaysBeforeNow:1];
 }
@@ -77,12 +77,12 @@
 
 - (BOOL) isTomorrow
 {
-	return [self isSameDate:[NSDate tomorrow]];
+	return [self isSameDate:[NSDate dateTomorrow]];
 }
 
 - (BOOL) isYesterday
 {
-	return [self isSameDate:[NSDate yesterday]];
+	return [self isSameDate:[NSDate dateYesterday]];
 }
 
 - (BOOL) isSameWeek: (NSDate *) aDate
