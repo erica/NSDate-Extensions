@@ -112,6 +112,10 @@
 	if (abs([components1 year] - [components2 year]) > 1)
 		return NO;
 	
+	// Must have a time interval under 1 week. Thanks @aclark
+	if (abs([self timeIntervalSinceDate:aDate]) > 7 * D_DAY)
+		return NO;
+	
 	// For different years, they will both equal each other -- and "1" -- if and only if in the same week
 	return ([components1 week] == [components2 week]);
 }
