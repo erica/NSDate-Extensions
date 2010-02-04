@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		1D3623EC0D0F72F000981E51 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */; };
-		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		8E3A1F090FAA199F009B0518 /* cover320x416.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E3A1F080FAA199F009B0518 /* cover320x416.png */; };
-		8E4156E90FA4EE0E0006D27C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E4156E70FA4EE0E0006D27C /* Default.png */; };
-		8E4156EA0FA4EE0E0006D27C /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E4156E80FA4EE0E0006D27C /* icon.png */; };
 		8E5F2A8D111B593900F98C4D /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5F2A8C111B593900F98C4D /* NSDate-Utilities.m */; };
-		8E785FCB0FCDB853006EA81F /* TestBedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E785FCA0FCDB853006EA81F /* TestBedViewController.xib */; };
+		8E5F2B1A111B704900F98C4D /* cover320x416.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E5F2B15111B704900F98C4D /* cover320x416.png */; };
+		8E5F2B1B111B704900F98C4D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E5F2B16111B704900F98C4D /* Default.png */; };
+		8E5F2B1C111B704900F98C4D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E5F2B17111B704900F98C4D /* icon.png */; };
+		8E5F2B1D111B704900F98C4D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5F2B18111B704900F98C4D /* main.m */; };
+		8E5F2B1E111B704900F98C4D /* TestBedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E5F2B19111B704900F98C4D /* TestBedViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,15 +23,15 @@
 		1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* HelloWorld_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorld_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8E3A1F080FAA199F009B0518 /* cover320x416.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover320x416.png; sourceTree = "<group>"; };
-		8E4156E70FA4EE0E0006D27C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		8E4156E80FA4EE0E0006D27C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		8E5F2A8B111B593900F98C4D /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		8E5F2A8C111B593900F98C4D /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
-		8E785FCA0FCDB853006EA81F /* TestBedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestBedViewController.xib; sourceTree = "<group>"; };
+		8E5F2B15111B704900F98C4D /* cover320x416.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cover320x416.png; path = "Test Bed/cover320x416.png"; sourceTree = "<group>"; };
+		8E5F2B16111B704900F98C4D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = "Test Bed/Default.png"; sourceTree = "<group>"; };
+		8E5F2B17111B704900F98C4D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = "Test Bed/icon.png"; sourceTree = "<group>"; };
+		8E5F2B18111B704900F98C4D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Test Bed/main.m"; sourceTree = "<group>"; };
+		8E5F2B19111B704900F98C4D /* TestBedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TestBedViewController.xib; path = "Test Bed/TestBedViewController.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +61,6 @@
 			children = (
 				8E5F2A8B111B593900F98C4D /* NSDate-Utilities.h */,
 				8E5F2A8C111B593900F98C4D /* NSDate-Utilities.m */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
-				8E785FCA0FCDB853006EA81F /* TestBedViewController.xib */,
 				8EB688610FA64AD100489E4B /* Support */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -83,11 +81,13 @@
 		8EB688610FA64AD100489E4B /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				8E3A1F080FAA199F009B0518 /* cover320x416.png */,
+				8E5F2B15111B704900F98C4D /* cover320x416.png */,
+				8E5F2B16111B704900F98C4D /* Default.png */,
+				8E5F2B17111B704900F98C4D /* icon.png */,
+				8E5F2B18111B704900F98C4D /* main.m */,
+				8E5F2B19111B704900F98C4D /* TestBedViewController.xib */,
 				32CA4F630368D1EE00C91783 /* HelloWorld_Prefix.pch */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				8E4156E80FA4EE0E0006D27C /* icon.png */,
-				8E4156E70FA4EE0E0006D27C /* Default.png */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -134,10 +134,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E4156E90FA4EE0E0006D27C /* Default.png in Resources */,
-				8E4156EA0FA4EE0E0006D27C /* icon.png in Resources */,
-				8E3A1F090FAA199F009B0518 /* cover320x416.png in Resources */,
-				8E785FCB0FCDB853006EA81F /* TestBedViewController.xib in Resources */,
+				8E5F2B1A111B704900F98C4D /* cover320x416.png in Resources */,
+				8E5F2B1B111B704900F98C4D /* Default.png in Resources */,
+				8E5F2B1C111B704900F98C4D /* icon.png in Resources */,
+				8E5F2B1E111B704900F98C4D /* TestBedViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,8 +148,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				8E5F2A8D111B593900F98C4D /* NSDate-Utilities.m in Sources */,
+				8E5F2B1D111B704900F98C4D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
