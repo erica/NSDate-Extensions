@@ -17,7 +17,7 @@
 
 #import "NSDate-Utilities.h"
 
-#define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit)
+#define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
 #define CURRENT_CALENDAR [NSCalendar currentCalendar]
 
 @implementation NSDate (Utilities)
@@ -223,6 +223,10 @@
 	return dTime;
 }
 
+/* 
+ 
+ IN DEVELOPMENT
+
 - (NSInteger) daysAfterDate: (NSDate *) aDate
 {
 	NSDateComponents *components = [self componentsWithOffsetFromDate:aDate];
@@ -258,6 +262,7 @@
 	NSDateComponents *components = [self componentsWithOffsetFromDate:aDate];
 	return -[components minute];
 }
+ */
 
 - (NSInteger) nearestHour
 {

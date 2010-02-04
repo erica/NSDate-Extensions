@@ -48,12 +48,15 @@
 - (NSDate *) dateBySubtractingMinutes: (NSUInteger) dMinutes;
 - (NSDate *) dateAtStartOfDay;
 
+/* 
+ IN DEVELOPMENT -- NOT THERE YET
 - (NSInteger) daysAfterDate: (NSDate *) aDate;
 - (NSInteger) daysBeforeDate: (NSDate *) aDate;
 - (NSInteger) hoursAfterDate: (NSDate *) aDate;
 - (NSInteger) hoursBeforeDate: (NSDate *) aDate;
 - (NSInteger) minutesAfterDate: (NSDate *) aDate;
 - (NSInteger) minutesBeforeDate: (NSDate *) aDate;
+ */
 
 - (NSInteger) nearestHour;
 - (NSInteger) hour;

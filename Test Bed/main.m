@@ -36,8 +36,6 @@
 	NSLog(@"3 hours from now: %@", [NSDate dateWithHoursFromNow:3]);
 	NSLog(@"3 hours ago: %@", [NSDate dateWithHoursBeforeNow:3]);
 	
-	NSLog(@"Days since 12/31: %d", [[NSDate date] daysAfterDate:testDate1]);
-	
 	NSLog(@"Is tomorrow? (YES) %@", [[NSDate dateTomorrow] isTomorrow] ? @"Yes" : @"No");
 	NSLog(@"Is yesterday? (NO) %@", [[NSDate dateTomorrow] isYesterday] ? @"Yes" : @"No");
 	NSLog(@"Is today? (YES) %@", [[NSDate dateWithMinutesFromNow:5] isToday] ? @"Yes" : @"No");
@@ -52,7 +50,22 @@
 		  [testDate1 isEarlierThanDate:testDate2] ? @"Yes" :  @"No",
 		  [testDate1 isLaterThanDate:testDate2] ? @"Yes" :  @"No");
 	
+	/* NSLog(@"days: %d, hours: %d, minutes: %d", // not working yet
+		  [testDate2 daysAfterDate:testDate1],
+		  [testDate2 hoursAfterDate:testDate1],
+		  [testDate2 minutesAfterDate:testDate1]); */
 	
+	NSLog(@"nearest hour: %d, hour: %d, minute: %d, seconds: %d, day: %d, month: %d, week: %d, weekday: %d, nthWeekday: %d, year: %d",
+		  [[NSDate date] nearestHour],
+		  [[NSDate date] hour],
+		  [[NSDate date] minute],
+		  [[NSDate date] seconds],
+		  [[NSDate date] day],
+		  [[NSDate date] month],
+		  [[NSDate date] week],
+		  [[NSDate date] weekday],
+		  [[NSDate date] nthWeekday],
+		  [[NSDate date] year]);
 }
 @end
 
