@@ -50,7 +50,7 @@
 - (NSDate *) dateAtStartOfDay;
 
 /* 
- IN DEVELOPMENT -- NOT THERE YET
+ IN DEVELOPMENT -- NOT THERE YET -- Will need timeInterval utilities
 - (NSInteger) daysAfterDate: (NSDate *) aDate;
 - (NSInteger) daysBeforeDate: (NSDate *) aDate;
 - (NSInteger) hoursAfterDate: (NSDate *) aDate;
