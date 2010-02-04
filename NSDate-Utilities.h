@@ -24,7 +24,7 @@
 + (NSDate *) dateWithMinutesFromNow: (NSUInteger) dMinutes;
 + (NSDate *) dateWithMinutesBeforeNow: (NSUInteger) dMinutes;
 
-- (BOOL) isSameDateAs: (NSDate *) aDate;
+- (BOOL) isEqualToDateIgnoringTime: (NSDate *) aDate;
 - (BOOL) isToday;
 - (BOOL) isTomorrow;
 - (BOOL) isYesterday;

@@ -85,7 +85,7 @@
 	return [self dateYesterday[NSDate dateYesterday]];
 }
 
-- (BOOL) isSameDateAs: (NSDate *) aDate
+- (BOOL) isSameYearAsDate: (NSDate *) aDate
 {
 	NSDateComponents *components1 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
 	NSDateComponents *components2 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:aDate];
@@ -104,21 +104,21 @@
 
 - (BOOL) isThisWeek
 {
-	return [self isSameDateAs:[NSDate date]];
+	return [self isSameYearAsDate:[NSDate date]];
 }
 
 - (BOOL) isNextWeek
 {
 	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_WEEK;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-	return [self isSameDateAs:newDate];
+	return [self isSameYearAsDate:newDate];
 }
 
 - (BOOL) isLastWeek
 {
 	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - D_WEEK;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-	return [self isSameDateAs:newDate];
+	return [self isSameYearAsDate:newDate];
 }
 
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate
