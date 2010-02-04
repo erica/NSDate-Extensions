@@ -13,50 +13,50 @@
 
 @implementation NSDate (Utilities)
 
-+ (NSDate *) daysFromNow: (NSUInteger) days
++ (NSDate *) dateWithDaysFromNow: (NSUInteger) days
 {
 	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_DAY * days;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;	
 }
 
-+ (NSDate *) daysAgo: (NSUInteger) days
++ (NSDate *) dateWithDaysBeforeNow: (NSUInteger) days
 {
-	return [NSDate daysFromNow: (days * -1)];
+	return [NSDate dateWithDaysFromNow: (days * -1)];
 }
 
 + (NSDate *) tomorrow
 {
-	return [NSDate daysFromNow:1];
+	return [NSDate dateWithDaysFromNow:1];
 }
 
 + (NSDate *) yesterday
 {
-	return [NSDate daysAgo:1];
+	return [NSDate dateWithDaysBeforeNow:1];
 }
 
-+ (NSDate *) hoursFromNow: (NSUInteger) dHours
++ (NSDate *) dateWithHoursFromNow: (NSUInteger) dHours
 {
 	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_HOUR * dHours;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;	
 }
 
-+ (NSDate *) hoursAgo: (NSUInteger) dHours
++ (NSDate *) dateWithHoursBeforeNow: (NSUInteger) dHours
 {
-	return [self hoursFromNow:(-1 * dHours)];
+	return [self dateWithHoursFromNow:(-1 * dHours)];
 }
 
-+ (NSDate *) minutesFromNow: (NSUInteger) dMinutes
++ (NSDate *) dateWithMinutesFromNow: (NSUInteger) dMinutes
 {
 	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_MINUTE * dMinutes;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;		
 }
 
-+ (NSDate *) minutesAgo: (NSUInteger) dMinutes
++ (NSDate *) dateWithMinutesBeforeNow: (NSUInteger) dMinutes
 {
-	return [self minutesFromNow:(-1 * dMinutes)];
+	return [self dateWithMinutesFromNow:(-1 * dMinutes)];
 }
 
 
@@ -149,12 +149,12 @@
 	return ([components1 year] == ([components2 year] - 1));
 }
 
-- (BOOL) isBeforeDate: (NSDate *) aDate
+- (BOOL) isEarlierThanDate: (NSDate *) aDate
 {
 	return ([self earlierDate:aDate] == self);
 }
 
-- (BOOL) isAfterDate: (NSDate *) aDate
+- (BOOL) isLaterThanDate: (NSDate *) aDate
 {
 	return ([self laterDate:aDate] == self);
 }

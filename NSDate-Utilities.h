@@ -15,14 +15,14 @@
 #define D_YEAR		31556926
 
 @interface NSDate (Utilities)
-+ (NSDate *) daysFromNow: (NSUInteger) days;
-+ (NSDate *) daysAgo: (NSUInteger) days;
++ (NSDate *) dateWithDaysFromNow: (NSUInteger) days;
++ (NSDate *) dateWithDaysBeforeNow: (NSUInteger) days;
 + (NSDate *) tomorrow;
 + (NSDate *) yesterday;
-+ (NSDate *) hoursFromNow: (NSUInteger) dHours;
-+ (NSDate *) hoursAgo: (NSUInteger) dHours;
-+ (NSDate *) minutesFromNow: (NSUInteger) dMinutes;
-+ (NSDate *) minutesAgo: (NSUInteger) dMinutes;
++ (NSDate *) dateWithHoursFromNow: (NSUInteger) dHours;
++ (NSDate *) dateWithHoursBeforeNow: (NSUInteger) dHours;
++ (NSDate *) dateWithMinutesFromNow: (NSUInteger) dMinutes;
++ (NSDate *) dateWithMinutesBeforeNow: (NSUInteger) dMinutes;
 
 - (BOOL) isSameDate: (NSDate *) aDate;
 - (BOOL) isToday;
@@ -37,8 +37,8 @@
 - (BOOL) isNextYear;
 - (BOOL) isLastYear;
 
-- (BOOL) isBeforeDate: (NSDate *) aDate;
-- (BOOL) isAfterDate: (NSDate *) aDate;
+- (BOOL) isEarlierThanDate: (NSDate *) aDate;
+- (BOOL) isLaterThanDate: (NSDate *) aDate;
 
 - (NSDate *) daysAfterDate: (NSUInteger) dDays;
 - (NSDate *) daysBeforeDate: (NSUInteger) dDays;

@@ -5,6 +5,8 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "NSDate-Utilities.h"
+
 #define COOKBOOK_PURPLE_COLOR	[UIColor colorWithRed:0.20392f green:0.19607f blue:0.61176f alpha:1.0f]
 #define BARBUTTON(TITLE, SELECTOR) 	[[[UIBarButtonItem alloc] initWithTitle:TITLE style:UIBarButtonItemStylePlain target:self action:SELECTOR] autorelease]
 
@@ -24,12 +26,10 @@
 	NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
 	formatter.dateFormat = @"MM-dd-yyyy";
 	NSDate *day1 = [formatter dateFromString:@"12-31-2009"];
-	NSDate *day2 = [formatter dateFromString:@"1-1-2010"];
 	
-	NSDateComponents* components1 = [[NSCalendar currentCalendar] components:(NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit) fromDate:day1];
-    NSDateComponents* components2 = [[NSCalendar currentCalendar] components:(NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit) fromDate:day2];
-	
-	NSLog(@"%d %d", [components1 week], [components2 week]);
+	NSLog(@"Today: %@", [NSDate date]);
+	NSLog(@"Tomorrow: %@", [NSDate tomorrow]);
+	NSLog(@"Yesterday: %@", [NSDate yesterday]);
 }
 @end
 
