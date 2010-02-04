@@ -24,15 +24,15 @@
 + (NSDate *) dateWithMinutesFromNow: (NSUInteger) dMinutes;
 + (NSDate *) dateWithMinutesBeforeNow: (NSUInteger) dMinutes;
 
-- (BOOL) isSameDate: (NSDate *) aDate;
+- (BOOL) isSameDateAs: (NSDate *) aDate;
 - (BOOL) isToday;
 - (BOOL) isTomorrow;
 - (BOOL) isYesterday;
-- (BOOL) isSameWeek: (NSDate *) aDate;
+- (BOOL) isSameWeekAsDate: (NSDate *) aDate;
 - (BOOL) isThisWeek;
 - (BOOL) isNextWeek;
 - (BOOL) isLastWeek;
-- (BOOL) isSameYear: (NSDate *) aDate;
+- (BOOL) isSameYearAsDate: (NSDate *) aDate;
 - (BOOL) isThisYear;
 - (BOOL) isNextYear;
 - (BOOL) isLastYear;

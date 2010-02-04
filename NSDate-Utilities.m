@@ -61,7 +61,7 @@
 
 
 
-- (BOOL)isSameDate: (NSDate *) aDate
+- (BOOL)dateYesterday (NSDate *) aDate
 {
 	NSDateComponents *components1 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
 	NSDateComponents *components2 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:aDate];
@@ -72,20 +72,20 @@
 
 - (BOOL) isToday
 {
-	return [self isSameDate:[NSDate date]];
+	return [self dateYesterday[NSDate date]];
 }
 
 - (BOOL) isTomorrow
 {
-	return [self isSameDate:[NSDate dateTomorrow]];
+	return [self dateYesterday[NSDate dateTomorrow]];
 }
 
 - (BOOL) isYesterday
 {
-	return [self isSameDate:[NSDate dateYesterday]];
+	return [self dateYesterday[NSDate dateYesterday]];
 }
 
-- (BOOL) isSameWeek: (NSDate *) aDate
+- (BOOL) isSameDateAs: (NSDate *) aDate
 {
 	NSDateComponents *components1 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
 	NSDateComponents *components2 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:aDate];
@@ -104,24 +104,24 @@
 
 - (BOOL) isThisWeek
 {
-	return [self isSameWeek:[NSDate date]];
+	return [self isSameDateAs:[NSDate date]];
 }
 
 - (BOOL) isNextWeek
 {
 	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_WEEK;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-	return [self isSameWeek:newDate];
+	return [self isSameDateAs:newDate];
 }
 
 - (BOOL) isLastWeek
 {
 	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - D_WEEK;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-	return [self isSameWeek:newDate];
+	return [self isSameDateAs:newDate];
 }
 
-- (BOOL) isSameYear: (NSDate *) aDate
+- (BOOL) isSameWeekAsDate: (NSDate *) aDate
 {
 	NSDateComponents *components1 = [CURRENT_CALENDAR components:NSYearCalendarUnit fromDate:self];
 	NSDateComponents *components2 = [CURRENT_CALENDAR components:NSYearCalendarUnit fromDate:aDate];
@@ -130,7 +130,7 @@
 
 - (BOOL) isThisYear
 {
-	return [self isSameYear:[NSDate date]];
+	return [self isSameWeekAsDate:[NSDate date]];
 }
 
 - (BOOL) isNextYear
