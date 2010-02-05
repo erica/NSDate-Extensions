@@ -1,11 +1,8 @@
-//
-//  NSDate-Utilities.h
-//  HelloWorld
-//
-//  Created by Erica Sadun on 2/4/10.
-//  Copyright 2010 Up To No Good, Inc.. All rights reserved.
-//  License tbd
-//
+/*
+ Erica Sadun, http://ericasadun.com
+ iPhone Developer's Cookbook 3.x and beyond
+ BSD License, Use at your own risk
+ */
 
 #import <Foundation/Foundation.h>
 
@@ -16,6 +13,8 @@
 #define D_YEAR		31556926
 
 @interface NSDate (Utilities)
+
+// Relative dates from the current date
 + (NSDate *) dateTomorrow;
 + (NSDate *) dateYesterday;
 + (NSDate *) dateWithDaysFromNow: (NSUInteger) days;
@@ -25,6 +24,7 @@
 + (NSDate *) dateWithMinutesFromNow: (NSUInteger) dMinutes;
 + (NSDate *) dateWithMinutesBeforeNow: (NSUInteger) dMinutes;
 
+// Comparing dates
 - (BOOL) isEqualToDateIgnoringTime: (NSDate *) aDate;
 - (BOOL) isToday;
 - (BOOL) isTomorrow;
@@ -37,10 +37,10 @@
 - (BOOL) isThisYear;
 - (BOOL) isNextYear;
 - (BOOL) isLastYear;
-
 - (BOOL) isEarlierThanDate: (NSDate *) aDate;
 - (BOOL) isLaterThanDate: (NSDate *) aDate;
 
+// Adjusting dates
 - (NSDate *) dateByAddingDays: (NSUInteger) dDays;
 - (NSDate *) dateBySubtractingDays: (NSUInteger) dDays;
 - (NSDate *) dateByAddingHours: (NSUInteger) dHours;
@@ -49,16 +49,15 @@
 - (NSDate *) dateBySubtractingMinutes: (NSUInteger) dMinutes;
 - (NSDate *) dateAtStartOfDay;
 
-/* 
- IN DEVELOPMENT -- NOT THERE YET -- Will need timeInterval utilities
-- (NSInteger) daysAfterDate: (NSDate *) aDate;
-- (NSInteger) daysBeforeDate: (NSDate *) aDate;
-- (NSInteger) hoursAfterDate: (NSDate *) aDate;
-- (NSInteger) hoursBeforeDate: (NSDate *) aDate;
+// Retrieving intervals
 - (NSInteger) minutesAfterDate: (NSDate *) aDate;
 - (NSInteger) minutesBeforeDate: (NSDate *) aDate;
- */
+- (NSInteger) hoursAfterDate: (NSDate *) aDate;
+- (NSInteger) hoursBeforeDate: (NSDate *) aDate;
+- (NSInteger) daysAfterDate: (NSDate *) aDate;
+- (NSInteger) daysBeforeDate: (NSDate *) aDate;
 
+// Decomposing dates
 - (NSInteger) nearestHour;
 - (NSInteger) hour;
 - (NSInteger) minute;
@@ -67,6 +66,6 @@
 - (NSInteger) month;
 - (NSInteger) week;
 - (NSInteger) weekday;
-- (NSInteger) nthWeekday;
+- (NSInteger) nthWeekday; // e.g. 2nd Tuesday of the month == 2
 - (NSInteger) year;
 @end

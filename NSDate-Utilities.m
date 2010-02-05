@@ -1,20 +1,14 @@
-//
-//  NSDate-Utilities.m
-//  HelloWorld
-//
-//  Created by Erica Sadun on 2/4/10.
-//  Copyright 2010 Up To No Good, Inc.. All rights reserved.
-//  License tbd
-//
+/*
+ Erica Sadun, http://ericasadun.com
+ iPhone Developer's Cookbook 3.x and beyond
+ BSD License, Use at your own risk
+ */
 
 /*
- Not planning to implement: dateByAskingGirlOut and dateByGettingBabysitter
- 
+ #import <humor.h> : Not planning to implement: dateByAskingBoyOut and dateByGettingBabysitter
  ----
- 
  General Thanks: sstreza, Scott Lawrence, Kevin Ballard, NoOneButMe, Avi`, August Joki. Emanuele Vulcano, jcromartiej
- 
- */
+*/
 
 #import "NSDate-Utilities.h"
 
@@ -22,6 +16,8 @@
 #define CURRENT_CALENDAR [NSCalendar currentCalendar]
 
 @implementation NSDate (Utilities)
+
+#pragma mark Relative Dates
 
 + (NSDate *) dateWithDaysFromNow: (NSUInteger) days
 {
@@ -74,6 +70,8 @@
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;		
 }
+
+#pragma mark Comparing Dates
 
 - (BOOL) isEqualToDateIgnoringTime: (NSDate *) aDate
 {
@@ -177,6 +175,9 @@
 	return ([self laterDate:aDate] == self);
 }
 
+
+#pragma mark Adjusting Dates
+
 - (NSDate *) dateByAddingDays: (NSUInteger) dDays
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_DAY * dDays;
@@ -228,46 +229,45 @@
 	return dTime;
 }
 
-/* 
- 
- IN DEVELOPMENT
-
-- (NSInteger) daysAfterDate: (NSDate *) aDate
-{
-	NSDateComponents *components = [self componentsWithOffsetFromDate:aDate];
-	return [components day];
-}
-
-- (NSInteger) daysBeforeDate: (NSDate *) aDate
-{
-	NSDateComponents *components = [self componentsWithOffsetFromDate:aDate];
-	return -[components day];
-}
-
-- (NSInteger) hoursAfterDate: (NSDate *) aDate
-{
-	NSDateComponents *components = [self componentsWithOffsetFromDate:aDate];
-	return [components hour];
-}
-
-- (NSInteger) hoursBeforeDate: (NSDate *) aDate
-{
-	NSDateComponents *components = [self componentsWithOffsetFromDate:aDate];
-	return -[components hour];
-}
+#pragma mark Retrieving Intervals
 
 - (NSInteger) minutesAfterDate: (NSDate *) aDate
 {
-	NSDateComponents *components = [self componentsWithOffsetFromDate:aDate];
-	return [components minute];
+	NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
+	return (NSInteger) (ti / D_MINUTE);
 }
 
 - (NSInteger) minutesBeforeDate: (NSDate *) aDate
 {
-	NSDateComponents *components = [self componentsWithOffsetFromDate:aDate];
-	return -[components minute];
+	NSTimeInterval ti = [aDate timeIntervalSinceDate:self];
+	return (NSInteger) (ti / D_MINUTE);
 }
- */
+
+- (NSInteger) hoursAfterDate: (NSDate *) aDate
+{
+	NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
+	return (NSInteger) (ti / D_HOUR);
+}
+
+- (NSInteger) hoursBeforeDate: (NSDate *) aDate
+{
+	NSTimeInterval ti = [aDate timeIntervalSinceDate:self];
+	return (NSInteger) (ti / D_HOUR);
+}
+
+- (NSInteger) daysAfterDate: (NSDate *) aDate
+{
+	NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
+	return (NSInteger) (ti / D_DAY);
+}
+
+- (NSInteger) daysBeforeDate: (NSDate *) aDate
+{
+	NSTimeInterval ti = [aDate timeIntervalSinceDate:self];
+	return (NSInteger) (ti / D_DAY);
+}
+
+#pragma mark Decomposing Dates
 
 - (NSInteger) nearestHour
 {
@@ -319,7 +319,7 @@
 	return [components weekday];
 }
 
-- (NSInteger) nthWeekday // e.g. 2nd tuesday of the month is 2
+- (NSInteger) nthWeekday // e.g. 2nd Tuesday of the month is 2
 {
 	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
 	return [components weekdayOrdinal];

@@ -50,10 +50,10 @@
 		  [testDate1 isEarlierThanDate:testDate2] ? @"Yes" :  @"No",
 		  [testDate1 isLaterThanDate:testDate2] ? @"Yes" :  @"No");
 	
-	/* NSLog(@"days: %d, hours: %d, minutes: %d", // not working yet
+	NSLog(@"days: %d, hours: %d, minutes: %d",
 		  [testDate2 daysAfterDate:testDate1],
 		  [testDate2 hoursAfterDate:testDate1],
-		  [testDate2 minutesAfterDate:testDate1]); */
+		  [testDate2 minutesAfterDate:testDate1]);
 	
 	NSLog(@"nearest hour: %d, hour: %d, minute: %d, seconds: %d, day: %d, month: %d, week: %d, weekday: %d, nthWeekday: %d, year: %d",
 		  [[NSDate date] nearestHour],

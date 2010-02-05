@@ -10,6 +10,7 @@
 		1D3623EC0D0F72F000981E51 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		8E28FB98111C77C700A42C38 /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E28FB97111C77C700A42C38 /* TimeFormatters.m */; };
 		8E5F2A8D111B593900F98C4D /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5F2A8C111B593900F98C4D /* NSDate-Utilities.m */; };
 		8E5F2B1A111B704900F98C4D /* cover320x416.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E5F2B15111B704900F98C4D /* cover320x416.png */; };
 		8E5F2B1B111B704900F98C4D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E5F2B16111B704900F98C4D /* Default.png */; };
@@ -25,6 +26,8 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* HelloWorld_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorld_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E28FB96111C77C700A42C38 /* TimeFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeFormatters.h; sourceTree = "<group>"; };
+		8E28FB97111C77C700A42C38 /* TimeFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeFormatters.m; sourceTree = "<group>"; };
 		8E5F2A8B111B593900F98C4D /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		8E5F2A8C111B593900F98C4D /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
 		8E5F2B15111B704900F98C4D /* cover320x416.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cover320x416.png; path = "Test Bed/cover320x416.png"; sourceTree = "<group>"; };
@@ -59,6 +62,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				8E28FB96111C77C700A42C38 /* TimeFormatters.h */,
+				8E28FB97111C77C700A42C38 /* TimeFormatters.m */,
 				8E5F2A8B111B593900F98C4D /* NSDate-Utilities.h */,
 				8E5F2A8C111B593900F98C4D /* NSDate-Utilities.m */,
 				8EB688610FA64AD100489E4B /* Support */,
@@ -150,6 +155,7 @@
 			files = (
 				8E5F2A8D111B593900F98C4D /* NSDate-Utilities.m in Sources */,
 				8E5F2B1D111B704900F98C4D /* main.m in Sources */,
+				8E28FB98111C77C700A42C38 /* TimeFormatters.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
