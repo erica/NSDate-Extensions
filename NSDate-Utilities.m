@@ -102,20 +102,11 @@
 	NSDateComponents *components1 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
 	NSDateComponents *components2 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:aDate];
 	
-	// Same Year
-	if ([components1 year] == [components2 year])
-		return ([components1 week] == [components2 week]);
-	
-	// Different year, must be off by 1 year
-	if (abs([components1 year] - [components2 year]) > 1)
-		return NO;
+	// Must be same week. 12/31 and 1/1 will both be week "1" if they are in the same week
+	if ([components1 week] != [components2 week]) return NO;
 	
 	// Must have a time interval under 1 week. Thanks @aclark
-	if (abs([self timeIntervalSinceDate:aDate]) > 7 * D_DAY)
-		return NO;
-	
-	// For different years, they will both equal each other -- and "1" -- if and only if in the same week
-	return ([components1 week] == [components2 week]);
+	return (abs([self timeIntervalSinceDate:aDate]) < 7 * D_DAY);
 }
 
 - (BOOL) isThisWeek
