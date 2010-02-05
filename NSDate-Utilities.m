@@ -97,6 +97,7 @@
 	return [self isEqualToDateIgnoringTime:[NSDate dateYesterday]];
 }
 
+// This hard codes the assumption that a week is 7 days
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate
 {
 	NSDateComponents *components1 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
@@ -106,7 +107,7 @@
 	if ([components1 week] != [components2 week]) return NO;
 	
 	// Must have a time interval under 1 week. Thanks @aclark
-	return (abs([self timeIntervalSinceDate:aDate]) < 7 * D_DAY);
+	return (abs([self timeIntervalSinceDate:aDate]) < D_WEEK);
 }
 
 - (BOOL) isThisWeek
