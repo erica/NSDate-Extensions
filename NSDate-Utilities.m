@@ -138,7 +138,7 @@
 
 - (BOOL) isThisYear
 {
-	return [self isSameWeekAsDate:[NSDate date]];
+	return [self isSameYearAsDate:[NSDate date]];
 }
 
 - (BOOL) isNextYear
