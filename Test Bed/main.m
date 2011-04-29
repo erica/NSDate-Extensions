@@ -66,6 +66,29 @@
 		  [[NSDate date] weekday],
 		  [[NSDate date] nthWeekday],
 		  [[NSDate date] year]);
+    
+    NSDate *addSubTestDate = [NSDate date];
+    NSLog(@"Date for testing time addition and subtraction methods is: %@", addSubTestDate);
+    NSLog(@"One second later: %@", [addSubTestDate dateByAddingSeconds:1]);
+    NSLog(@"One second earlier: %@", [addSubTestDate dateBySubtractingSeconds:1]);
+    NSLog(@"One minute later: %@", [addSubTestDate dateByAddingMinutes:1]);
+    NSLog(@"One minute earlier: %@", [addSubTestDate dateBySubtractingMinutes:1]);
+    NSLog(@"One hour later: %@", [addSubTestDate dateByAddingHours:1]);
+    NSLog(@"One hour earlier: %@", [addSubTestDate dateBySubtractingHours:1]);
+    
+    NSDate *secondsTestDate = [NSDate date];
+    NSUInteger secondsTestSeconds = [secondsTestDate seconds];
+    NSLog(@"Date for testing isEqualToDateIgnoringSeconds: method is: %@", secondsTestDate);
+    NSLog(@"60 seconds from test date is the same time to the minute? (NO) %@", 
+          [secondsTestDate isEqualToDateIgnoringSeconds: [secondsTestDate dateByAddingSeconds:60]]  ? @"Yes" : @"No");
+    NSLog(@"%i seconds from test date is the same time to the minute? (NO) %@", 
+          D_MINUTE - secondsTestSeconds, [secondsTestDate isEqualToDateIgnoringSeconds: [secondsTestDate dateByAddingSeconds:D_MINUTE - secondsTestSeconds]] ? @"Yes" : @"No");
+    NSLog(@"%i seconds before test date is the same time to the minute? (NO) %@", 
+          secondsTestSeconds + 1, [secondsTestDate isEqualToDateIgnoringSeconds: [secondsTestDate dateBySubtractingSeconds:secondsTestSeconds + 1]] ? @"Yes" : @"No");
+    NSLog(@"%i seconds from test date is the same time to the minute? (YES) %@", 
+          D_MINUTE - secondsTestSeconds - 1, [secondsTestDate isEqualToDateIgnoringSeconds:[secondsTestDate dateByAddingSeconds:D_MINUTE - secondsTestSeconds - 1]] ? @"Yes" : @"No");
+    NSLog(@"%i seconds before test date is the same time to the minute? (YES) %@", 
+          secondsTestSeconds - 1, [secondsTestDate isEqualToDateIgnoringSeconds:[secondsTestDate dateBySubtractingSeconds:secondsTestSeconds - 1]] ? @"Yes" : @"No");
 }
 @end
 

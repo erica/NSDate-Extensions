@@ -82,6 +82,17 @@
 			([components1 day] == [components2 day]));
 }
 
+- (BOOL) isEqualToDateIgnoringSeconds:(NSDate *)aDate
+{
+    NSDateComponents *components1 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
+    NSDateComponents *components2 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:aDate];
+	return (([components1 year] == [components2 year]) &&
+			([components1 month] == [components2 month]) && 
+			([components1 day] == [components2 day]) &&
+            ([components1 hour] == [components2 hour]) &&
+            ([components1 minute] == [components2 minute]));
+}
+
 - (BOOL) isToday
 {
 	return [self isEqualToDateIgnoringTime:[NSDate date]];
@@ -170,7 +181,7 @@
 
 #pragma mark Adjusting Dates
 
-- (NSDate *) dateByAddingDays: (NSUInteger) dDays
+- (NSDate *) dateByAddingDays: (NSInteger) dDays
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_DAY * dDays;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
@@ -182,7 +193,7 @@
 	return [self dateByAddingDays: (dDays * -1)];
 }
 
-- (NSDate *) dateByAddingHours: (NSUInteger) dHours
+- (NSDate *) dateByAddingHours: (NSInteger) dHours
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_HOUR * dHours;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
@@ -194,7 +205,7 @@
 	return [self dateByAddingHours: (dHours * -1)];
 }
 
-- (NSDate *) dateByAddingMinutes: (NSUInteger) dMinutes
+- (NSDate *) dateByAddingMinutes: (NSInteger) dMinutes
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_MINUTE * dMinutes;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
@@ -204,6 +215,18 @@
 - (NSDate *) dateBySubtractingMinutes: (NSUInteger) dMinutes
 {
 	return [self dateByAddingMinutes: (dMinutes * -1)];
+}
+
+- (NSDate *) dateByAddingSeconds: (NSInteger) dSeconds
+{
+    NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + dSeconds;
+    NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
+    return newDate;
+}
+
+- (NSDate *) dateBySubtractingSeconds:(NSUInteger)dSeconds
+{
+    return [self dateByAddingSeconds: (dSeconds * -1)];
 }
 
 - (NSDate *) dateAtStartOfDay
