@@ -10,7 +10,13 @@
  General Thanks: sstreza, Scott Lawrence, Kevin Ballard, NoOneButMe, Avi`, August Joki. Emanuele Vulcano, jcromartiej
 */
 
-#import "NSDate-Utilities.h"
+/**
+ * This version of the file contains additions and changes made by
+ * Gianluca Tranchedone ( http://sketchtocode.com ).
+ * The author, Erica Sadun, is not responsible for those changes.
+ */
+
+#import "NSDate+Utilities.h"
 
 #define DATE_COMPONENTS (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
 #define CURRENT_CALENDAR [NSCalendar currentCalendar]

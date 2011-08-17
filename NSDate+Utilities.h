@@ -4,6 +4,12 @@
  BSD License, Use at your own risk
  */
 
+/**
+ * This version of the file contains additions and changes made by
+ * Gianluca Tranchedone ( http://sketchtocode.com ).
+ * The author, Erica Sadun, is not responsible for those changes.
+ */
+
 #import <Foundation/Foundation.h>
 
 #define D_MINUTE	60
@@ -70,4 +76,5 @@
 @property (readonly) NSInteger weekday;
 @property (readonly) NSInteger nthWeekday; // e.g. 2nd Tuesday of the month == 2
 @property (readonly) NSInteger year;
+
 @end
