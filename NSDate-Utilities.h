@@ -14,15 +14,17 @@
 
 @interface NSDate (Utilities)
 
++ (BOOL)timeIs24HourFormat;
+
 // Relative dates from the current date
 + (NSDate *) dateTomorrow;
 + (NSDate *) dateYesterday;
-+ (NSDate *) dateWithDaysFromNow: (NSUInteger) days;
-+ (NSDate *) dateWithDaysBeforeNow: (NSUInteger) days;
-+ (NSDate *) dateWithHoursFromNow: (NSUInteger) dHours;
-+ (NSDate *) dateWithHoursBeforeNow: (NSUInteger) dHours;
-+ (NSDate *) dateWithMinutesFromNow: (NSUInteger) dMinutes;
-+ (NSDate *) dateWithMinutesBeforeNow: (NSUInteger) dMinutes;
++ (NSDate *) dateWithDaysFromNow: (NSInteger) days;
++ (NSDate *) dateWithDaysBeforeNow: (NSInteger) days;
++ (NSDate *) dateWithHoursFromNow: (NSInteger) dHours;
++ (NSDate *) dateWithHoursBeforeNow: (NSInteger) dHours;
++ (NSDate *) dateWithMinutesFromNow: (NSInteger) dMinutes;
++ (NSDate *) dateWithMinutesBeforeNow: (NSInteger) dMinutes;
 
 // Comparing dates
 - (BOOL) isEqualToDateIgnoringTime: (NSDate *) aDate;
@@ -41,12 +43,12 @@
 - (BOOL) isLaterThanDate: (NSDate *) aDate;
 
 // Adjusting dates
-- (NSDate *) dateByAddingDays: (NSUInteger) dDays;
-- (NSDate *) dateBySubtractingDays: (NSUInteger) dDays;
-- (NSDate *) dateByAddingHours: (NSUInteger) dHours;
-- (NSDate *) dateBySubtractingHours: (NSUInteger) dHours;
-- (NSDate *) dateByAddingMinutes: (NSUInteger) dMinutes;
-- (NSDate *) dateBySubtractingMinutes: (NSUInteger) dMinutes;
+- (NSDate *) dateByAddingDays: (NSInteger) dDays;
+- (NSDate *) dateBySubtractingDays: (NSInteger) dDays;
+- (NSDate *) dateByAddingHours: (NSInteger) dHours;
+- (NSDate *) dateBySubtractingHours: (NSInteger) dHours;
+- (NSDate *) dateByAddingMinutes: (NSInteger) dMinutes;
+- (NSDate *) dateBySubtractingMinutes: (NSInteger) dMinutes;
 - (NSDate *) dateAtStartOfDay;
 
 // Retrieving intervals
