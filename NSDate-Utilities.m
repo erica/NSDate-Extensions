@@ -179,7 +179,9 @@
 
 - (NSDate *) dateBySubtractingDays: (NSUInteger) dDays
 {
-	return [self dateByAddingDays: (dDays * -1)];
+	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] - D_DAY * dDays;
+	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
+	return newDate;
 }
 
 - (NSDate *) dateByAddingHours: (NSUInteger) dHours
