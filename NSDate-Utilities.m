@@ -228,37 +228,37 @@
 - (NSInteger) minutesAfterDate: (NSDate *) aDate
 {
 	NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
-	return (NSInteger) (ti / D_MINUTE);
+	return (NSInteger) ceil (ti / D_MINUTE);
 }
 
 - (NSInteger) minutesBeforeDate: (NSDate *) aDate
 {
 	NSTimeInterval ti = [aDate timeIntervalSinceDate:self];
-	return (NSInteger) (ti / D_MINUTE);
+	return (NSInteger) ceil (ti / D_MINUTE);
 }
 
 - (NSInteger) hoursAfterDate: (NSDate *) aDate
 {
 	NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
-	return (NSInteger) (ti / D_HOUR);
+	return (NSInteger) ceil (ti / D_HOUR);
 }
 
 - (NSInteger) hoursBeforeDate: (NSDate *) aDate
 {
 	NSTimeInterval ti = [aDate timeIntervalSinceDate:self];
-	return (NSInteger) (ti / D_HOUR);
+	return (NSInteger) ceil (ti / D_HOUR);
 }
 
 - (NSInteger) daysAfterDate: (NSDate *) aDate
 {
 	NSTimeInterval ti = [self timeIntervalSinceDate:aDate];
-	return (NSInteger) (ti / D_DAY);
+	return (NSInteger) ceil (ti / D_DAY);
 }
 
 - (NSInteger) daysBeforeDate: (NSDate *) aDate
 {
 	NSTimeInterval ti = [aDate timeIntervalSinceDate:self];
-	return (NSInteger) (ti / D_DAY);
+	return (NSInteger) ceil (ti / D_DAY);
 }
 
 #pragma mark Decomposing Dates
