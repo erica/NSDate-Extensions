@@ -170,7 +170,7 @@
 
 #pragma mark Adjusting Dates
 
-- (NSDate *) dateByAddingDays: (NSUInteger) dDays
+- (NSDate *) dateByAddingDays: (NSInteger) dDays
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_DAY * dDays;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
@@ -182,7 +182,7 @@
 	return [self dateByAddingDays: (dDays * -1)];
 }
 
-- (NSDate *) dateByAddingHours: (NSUInteger) dHours
+- (NSDate *) dateByAddingHours: (NSInteger) dHours
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_HOUR * dHours;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
@@ -194,7 +194,7 @@
 	return [self dateByAddingHours: (dHours * -1)];
 }
 
-- (NSDate *) dateByAddingMinutes: (NSUInteger) dMinutes
+- (NSDate *) dateByAddingMinutes: (NSInteger) dMinutes
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_MINUTE * dMinutes;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
