@@ -119,14 +119,31 @@
 {
 	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_WEEK;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-	return [self isSameYearAsDate:newDate];
+	return [self isSameWeekAsDate:newDate];
 }
 
 - (BOOL) isLastWeek
 {
 	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - D_WEEK;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-	return [self isSameYearAsDate:newDate];
+	return [self isSameWeekAsDate:newDate];
+}
+
+- (BOOL) isSameMonthAsDate: (NSDate *) aDate
+{
+    NSDateComponents *components1 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
+	NSDateComponents *components2 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:aDate];
+	
+    if ([components1 month] == [components2 month] && [components1 year] == [components2 year]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL) isThisMonth
+{
+    return [self isSameMonthAsDate:[NSDate date]];
 }
 
 - (BOOL) isSameYearAsDate: (NSDate *) aDate
