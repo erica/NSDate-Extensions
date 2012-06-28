@@ -26,6 +26,7 @@
 
 // Comparing dates
 - (BOOL) isEqualToDateIgnoringTime: (NSDate *) aDate;
+- (BOOL) isEqualToDateIgnoringSeconds:(NSDate *)aDate;
 - (BOOL) isToday;
 - (BOOL) isTomorrow;
 - (BOOL) isYesterday;
@@ -47,6 +48,8 @@
 - (NSDate *) dateBySubtractingHours: (NSUInteger) dHours;
 - (NSDate *) dateByAddingMinutes: (NSUInteger) dMinutes;
 - (NSDate *) dateBySubtractingMinutes: (NSUInteger) dMinutes;
+- (NSDate *) dateByAddingSeconds: (NSInteger) dSeconds;
+- (NSDate *) dateBySubtractingSeconds: (NSUInteger) dSeconds;
 - (NSDate *) dateAtStartOfDay;
 
 // Retrieving intervals
