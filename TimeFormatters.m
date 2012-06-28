@@ -93,6 +93,7 @@ static NSString *const Str_TimeComponentAbbrMinutes_M    = @"TimeComponentAbbrMi
 
 
 // Localized string accessor
+NSString *LocStr(NSString *const key);
 NSString *LocStr(NSString *const key) {
     return [[NSBundle mainBundle] localizedStringForKey:key value:nil table:nil];
 }
@@ -140,7 +141,6 @@ NSString *LocStr(NSString *const key) {
             [formatter setMaximumFractionDigits:2];
             [formatter setMinimumFractionDigits:1];
             str = [formatter stringFromNumber:minutesValue];
-            [formatter release];
             break;
         }
             
@@ -154,8 +154,6 @@ NSString *LocStr(NSString *const key) {
             [components setMinute:hourMinutes];
             [components setSecond:seconds];
             str = [formatter stringForObjectValue:components];
-            [components release];
-            [formatter release];
             break;
         }
     }
@@ -167,10 +165,6 @@ NSString *LocStr(NSString *const key) {
 
 @implementation DateComponentsFormatter
 @synthesize dateStyle, timeStyle;
-
-- (void) dealloc {
-    [formatter release];
-}
 
 - (NSString *) stringForObjectValue:(NSDateComponents *)components {
     if (formatter == nil) formatter = [[NSDateFormatter alloc] init];
@@ -210,7 +204,6 @@ NSString *LocStr(NSString *const key) {
     
     if (noDays && noHours && minutes == 0 && !noSeconds) {
         formatKey = Str_TimeComponentsSubMinute_M;
-        [minutesValue release];
         minutesValue = [[NSNumber alloc] initWithInteger:1];
     } else if (noDays && noHours) {
         formatKey = Str_TimeComponents_M;
@@ -224,13 +217,6 @@ NSString *LocStr(NSString *const key) {
                       [minutesFormatter stringForObjectValue:minutesValue], 
                       [hoursFormatter stringForObjectValue:hoursValue], 
                       [daysFormatter stringForObjectValue:daysValue]];
-    
-    [minutesFormatter release];
-    [hoursFormatter release];
-    [daysFormatter release];
-    [minutesValue release];
-    [hoursValue release];
-    [daysValue release];
     
     return text;
 }
