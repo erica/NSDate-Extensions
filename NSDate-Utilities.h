@@ -17,12 +17,12 @@
 // Relative dates from the current date
 + (NSDate *) dateTomorrow;
 + (NSDate *) dateYesterday;
-+ (NSDate *) dateWithDaysFromNow: (NSUInteger) days;
-+ (NSDate *) dateWithDaysBeforeNow: (NSUInteger) days;
-+ (NSDate *) dateWithHoursFromNow: (NSUInteger) dHours;
-+ (NSDate *) dateWithHoursBeforeNow: (NSUInteger) dHours;
-+ (NSDate *) dateWithMinutesFromNow: (NSUInteger) dMinutes;
-+ (NSDate *) dateWithMinutesBeforeNow: (NSUInteger) dMinutes;
++ (NSDate *) dateWithDaysFromNow: (NSInteger) days;
++ (NSDate *) dateWithDaysBeforeNow: (NSInteger) days;
++ (NSDate *) dateWithHoursFromNow: (NSInteger) dHours;
++ (NSDate *) dateWithHoursBeforeNow: (NSInteger) dHours;
++ (NSDate *) dateWithMinutesFromNow: (NSInteger) dMinutes;
++ (NSDate *) dateWithMinutesBeforeNow: (NSInteger) dMinutes;
 
 // Comparing dates
 - (BOOL) isEqualToDateIgnoringTime: (NSDate *) aDate;
