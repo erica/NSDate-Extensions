@@ -138,7 +138,7 @@
 
 - (BOOL) isThisYear
 {
-	return [self isSameWeekAsDate:[NSDate date]];
+	return [self isSameYearAsDate:[NSDate date]];
 }
 
 - (BOOL) isNextYear
@@ -170,38 +170,38 @@
 
 #pragma mark Adjusting Dates
 
-- (NSDate *) dateByAddingDays: (NSUInteger) dDays
+- (NSDate *) dateByAddingDays: (NSInteger) dDays
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_DAY * dDays;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;		
 }
 
-- (NSDate *) dateBySubtractingDays: (NSUInteger) dDays
+- (NSDate *) dateBySubtractingDays: (NSInteger) dDays
 {
 	return [self dateByAddingDays: (dDays * -1)];
 }
 
-- (NSDate *) dateByAddingHours: (NSUInteger) dHours
+- (NSDate *) dateByAddingHours: (NSInteger) dHours
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_HOUR * dHours;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;		
 }
 
-- (NSDate *) dateBySubtractingHours: (NSUInteger) dHours
+- (NSDate *) dateBySubtractingHours: (NSInteger) dHours
 {
 	return [self dateByAddingHours: (dHours * -1)];
 }
 
-- (NSDate *) dateByAddingMinutes: (NSUInteger) dMinutes
+- (NSDate *) dateByAddingMinutes: (NSInteger) dMinutes
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_MINUTE * dMinutes;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;			
 }
 
-- (NSDate *) dateBySubtractingMinutes: (NSUInteger) dMinutes
+- (NSDate *) dateBySubtractingMinutes: (NSInteger) dMinutes
 {
 	return [self dateByAddingMinutes: (dMinutes * -1)];
 }
