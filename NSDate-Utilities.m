@@ -159,12 +159,12 @@
 
 - (BOOL) isEarlierThanDate: (NSDate *) aDate
 {
-	return ([self earlierDate:aDate] == self);
+	return ([self compare:aDate] == NSOrderedAscending);
 }
 
 - (BOOL) isLaterThanDate: (NSDate *) aDate
 {
-	return ([self laterDate:aDate] == self);
+	return ([self compare:aDate] == NSOrderedDescending);
 }
 
 
