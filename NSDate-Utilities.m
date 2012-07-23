@@ -170,6 +170,16 @@
 	return (components1.year == (components2.year - 1));
 }
 
+- (BOOL) isInFuture
+{
+	return ([self isLaterThanDate:[NSDate date]]);
+}
+
+- (BOOL) isInPast
+{
+	return ([self isEarlierThanDate:[NSDate date]]);
+}
+
 - (BOOL) isEarlierThanDate: (NSDate *) aDate
 {
 	return ([self compare:aDate] == NSOrderedAscending);

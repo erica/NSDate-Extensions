@@ -39,6 +39,8 @@
 - (BOOL) isThisYear;
 - (BOOL) isNextYear;
 - (BOOL) isLastYear;
+- (BOOL) isInFuture;
+- (BOOL) isInPast;
 - (BOOL) isEarlierThanDate: (NSDate *) aDate;
 - (BOOL) isLaterThanDate: (NSDate *) aDate;
 
