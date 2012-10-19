@@ -205,11 +205,20 @@
 
 #pragma mark Adjusting Dates
 
-- (NSDate *) dateByAddingYears: (NSInteger) dYears
+- (NSDate *) dateWithYear:(NSInteger) year
 {
     NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
+    components.year = year;
+    return [CURRENT_CALENDAR dateFromComponents:components];
+}
+
+- (NSDate *) dateByAddingYears: (NSInteger) dYears
+{
+    NSDateComponents *components = [[NSDateComponents alloc] init];
     components.year = dYears;
-    return [CURRENT_CALENDAR dateByAddingComponents:components toDate:self options:0];
+    NSDate *newDate = [CURRENT_CALENDAR dateByAddingComponents:components toDate:self options:0];
+    [components release];
+    return newDate;
 }
 
 - (NSDate *) dateBySubtractingYears: (NSInteger) dYears
@@ -219,9 +228,11 @@
 
 - (NSDate *) dateByAddingMonths: (NSInteger) dMonths
 {
-    NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
     components.month = dMonths;
-    return [CURRENT_CALENDAR dateByAddingComponents:components toDate:self options:0];
+    NSDate *newDate = [CURRENT_CALENDAR dateByAddingComponents:components toDate:self options:0];
+    [components release];
+    return newDate;
 }
 
 - (NSDate *) dateBySubtractingMonths: (NSInteger) dMonths
