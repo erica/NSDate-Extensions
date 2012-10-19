@@ -48,6 +48,10 @@
 - (BOOL) isTypicallyWeekend;
 
 // Adjusting dates
+- (NSDate *) dateByAddingYears: (NSInteger) dYears;
+- (NSDate *) dateBySubtractingYears: (NSInteger) dYears;
+- (NSDate *) dateByAddingMonths: (NSInteger) dMonths;
+- (NSDate *) dateBySubtractingMonths: (NSInteger) dMonths;
 - (NSDate *) dateByAddingDays: (NSInteger) dDays;
 - (NSDate *) dateBySubtractingDays: (NSInteger) dDays;
 - (NSDate *) dateByAddingHours: (NSInteger) dHours;
