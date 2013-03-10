@@ -41,6 +41,8 @@
 - (BOOL) isLastYear;
 - (BOOL) isEarlierThanDate: (NSDate *) aDate;
 - (BOOL) isLaterThanDate: (NSDate *) aDate;
+- (BOOL) isInFuture;
+- (BOOL) isInPast;
 
 // Date roles
 - (BOOL) isTypicallyWorkday;
