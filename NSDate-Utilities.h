@@ -35,6 +35,7 @@
 - (BOOL) isLastWeek;
 - (BOOL) isSameMonthAsDate: (NSDate *) aDate; 
 - (BOOL) isThisMonth;
+- (BOOL) isLastMonth;
 - (BOOL) isSameYearAsDate: (NSDate *) aDate;
 - (BOOL) isThisYear;
 - (BOOL) isNextYear;

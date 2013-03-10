@@ -141,6 +141,14 @@
     return [self isSameMonthAsDate:[NSDate date]];
 }
 
+- (BOOL) isLastMonth
+{
+    NSDateComponents *componentsLastMonth = [CURRENT_CALENDAR components:NSYearCalendarUnit|NSMonthCalendarUnit fromDate:[NSDate date]];
+    componentsLastMonth.month = componentsLastMonth.month -1;
+    NSDate *lastMonth = [CURRENT_CALENDAR dateFromComponents:componentsLastMonth];
+    return [self isSameMonthAsDate:lastMonth];
+}
+
 - (BOOL) isSameYearAsDate: (NSDate *) aDate
 {
 	NSDateComponents *components1 = [CURRENT_CALENDAR components:NSYearCalendarUnit fromDate:self];
