@@ -287,6 +287,18 @@
 	return (NSInteger) (ti / D_DAY);
 }
 
+#pragma mark Distances
+
+- (NSInteger)distanceInDaysToDate:(NSDate *)anotherDate
+{
+	NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+  NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
+                                                      fromDate:self
+                                                        toDate:anotherDate
+                                                       options:0];
+  return components.day;
+}
+
 #pragma mark Decomposing Dates
 
 - (NSInteger) nearestHour
