@@ -21,16 +21,14 @@
 
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days
 {
-	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_DAY * days;
-	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-	return newDate;	
+    // Jim Morrison
+	return [[NSDate date] dateByAddingDays:days];
 }
 
 + (NSDate *) dateWithDaysBeforeNow: (NSInteger) days
 {
-	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] - D_DAY * days;
-	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-	return newDate;	
+    // Jim Morrison
+	return [[NSDate date] dateBySubtractingDays:days];
 }
 
 + (NSDate *) dateTomorrow
