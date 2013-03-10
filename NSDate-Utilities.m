@@ -183,7 +183,7 @@
 #pragma mark Roles
 - (BOOL) isTypicallyWeekend
 {
-    NSDateComponents *components = [CURRENT_CALENDAR components:NSYearCalendarUnit fromDate:self];
+    NSDateComponents *components = [CURRENT_CALENDAR components:NSWeekdayCalendarUnit fromDate:self];
     if ((components.weekday == 1) ||
         (components.weekday == 7))
         return YES;
