@@ -21,13 +21,13 @@
 
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days
 {
-    // Jim Morrison
+    // Thanks, Jim Morrison
 	return [[NSDate date] dateByAddingDays:days];
 }
 
 + (NSDate *) dateWithDaysBeforeNow: (NSInteger) days
 {
-    // Jim Morrison
+    // Thanks, Jim Morrison
 	return [[NSDate date] dateBySubtractingDays:days];
 }
 
@@ -127,7 +127,7 @@
 	return [self isSameWeekAsDate:newDate];
 }
 
-// Fix via mspasov
+// Thanks, mspasov
 - (BOOL) isSameMonthAsDate: (NSDate *) aDate
 {
     NSDateComponents *components1 = [CURRENT_CALENDAR components:NSYearCalendarUnit | NSMonthCalendarUnit fromDate:self];
@@ -150,7 +150,7 @@
 
 - (BOOL) isThisYear
 {
-    // Thanks baspellis
+    // Thanks, baspellis
 	return [self isSameYearAsDate:[NSDate date]];
 }
 
@@ -179,6 +179,19 @@
 {
 	return ([self compare:aDate] == NSOrderedDescending);
 }
+
+// Thanks, markrickert
+- (BOOL) isInFuture
+{
+    return ([self isLaterThanDate:[NSDate date]]);
+}
+
+// Thanks, markrickert
+- (BOOL) isInPast
+{
+    return ([self isEarlierThanDate:[NSDate date]]);
+}
+
 
 #pragma mark Roles
 - (BOOL) isTypicallyWeekend
@@ -286,7 +299,7 @@
 	return (NSInteger) (ti / D_DAY);
 }
 
-// via dmitrydims
+// Thanks, dmitrydims
 // I have not yet thoroughly tested this
 - (NSInteger)distanceInDaysToDate:(NSDate *)anotherDate
 {
