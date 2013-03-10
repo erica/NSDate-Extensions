@@ -129,11 +129,12 @@
 	return [self isSameWeekAsDate:newDate];
 }
 
+// Fix via mspasov
 - (BOOL) isSameMonthAsDate: (NSDate *) aDate
 {
-	NSDateComponents *components1 = [CURRENT_CALENDAR components:NSYearCalendarUnit fromDate:self];
-	NSDateComponents *components2 = [CURRENT_CALENDAR components:NSYearCalendarUnit fromDate:aDate];
-	return ((components1.month == components2.month) &&
+    NSDateComponents *components1 = [CURRENT_CALENDAR components:NSYearCalendarUnit | NSMonthCalendarUnit fromDate:self];
+    NSDateComponents *components2 = [CURRENT_CALENDAR components:NSYearCalendarUnit | NSMonthCalendarUnit fromDate:aDate];
+    return ((components1.month == components2.month) &&
             (components1.year == components2.year));
 }
 
