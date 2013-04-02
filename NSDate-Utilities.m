@@ -372,3 +372,6 @@
 	return components.year;
 }
 @end
+
+#undef CURRENT_CALENDAR
+#undef DATE_COMPONENTS
