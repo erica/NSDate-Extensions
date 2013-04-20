@@ -41,6 +41,51 @@
 	return [NSDate dateWithDaysBeforeNow:1];
 }
 
++ (NSDate *) nextMonthDate
+{
+    return [self dateWithMonths:1 fromDate:[NSDate date]];
+}
+
++ (NSDate *) dateWithMonthsFromNow: (NSInteger) months
+{
+    return [self dateWithMonths:months fromDate:[NSDate date]];
+}
+
++ (NSDate *) dateWithMonths: (NSInteger) months fromDate: (NSDate *) startDate
+{
+    NSDate *newDate = startDate;
+    int i = months;
+    while (i>0) {
+        NSDateComponents *components = [[NSCalendar currentCalendar] components: NSMonthCalendarUnit fromDate:newDate];
+        switch (components.month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                newDate = [newDate dateByAddingDays:31];
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                newDate = [newDate dateByAddingDays:30];
+                break;
+            case 2:
+                newDate = [newDate dateByAddingDays:28];
+                break;
+            default:
+                newDate = [newDate dateByAddingDays:31];
+                break;
+        }
+        i--;
+    }
+    
+   	return newDate;
+}
+
 + (NSDate *) dateWithHoursFromNow: (NSInteger) dHours
 {
 	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_HOUR * dHours;
