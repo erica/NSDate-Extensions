@@ -308,6 +308,27 @@
     return components.day;
 }
 
+// Getting age in full years
+- (NSInteger) fullYearsAfterDate:(NSDate *)date;
+{
+    if (!date) return 0;
+    NSInteger age = [self year] - [date year];
+    if (age != 0)
+    {
+        NSDateComponents *components = [[NSDateComponents alloc] init];
+        [components setDay:[date day]]; [components setMonth:[date month]]; [components setYear:[self year]];
+        NSDate *testDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+        if ([self isEarlierThanDate:testDate])
+        {
+            if (age < 0)
+                age++;
+            else
+                age--;
+        }
+    }
+    return age;
+}
+
 #pragma mark Decomposing Dates
 
 - (NSInteger) nearestHour
@@ -371,4 +392,15 @@
 	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
 	return components.year;
 }
+
+#pragma mark Composing Dates
+
++ (NSDate *) dateWithYear:(NSUInteger)year month:(NSInteger)month day:(NSInteger)day
+{
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setDay:day]; [components setMonth:month]; [components setYear:year];
+    NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:components];
+    return date;
+}
+
 @end
