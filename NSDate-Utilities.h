@@ -64,7 +64,8 @@
 - (NSInteger) hoursBeforeDate: (NSDate *) aDate;
 - (NSInteger) daysAfterDate: (NSDate *) aDate;
 - (NSInteger) daysBeforeDate: (NSDate *) aDate;
-- (NSInteger)distanceInDaysToDate:(NSDate *)anotherDate;
+- (NSInteger) distanceInDaysToDate:(NSDate *)anotherDate;
+- (NSInteger) fullYearsAfterDate:(NSDate *)date;
 
 // Decomposing dates
 @property (readonly) NSInteger nearestHour;
@@ -77,4 +78,8 @@
 @property (readonly) NSInteger weekday;
 @property (readonly) NSInteger nthWeekday; // e.g. 2nd Tuesday of the month == 2
 @property (readonly) NSInteger year;
+
+// Composing dates
++ (NSDate *) dateWithYear:(NSUInteger)year month:(NSInteger)month day:(NSInteger)day;
+
 @end
