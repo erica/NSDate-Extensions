@@ -264,6 +264,45 @@
 	return [CURRENT_CALENDAR dateFromComponents:components];
 }
 
+- (NSDate *) dateAtStartOfWeek
+{
+	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
+    
+    NSDateComponents *componentsToSubtract = [[NSDateComponents alloc] init];
+    /* Substract [gregorian firstWeekday] to handle first day of the week being something else than Sunday */
+    [componentsToSubtract setDay: - ([components weekday] - [CURRENT_CALENDAR firstWeekday])];
+    NSDate *firstDayOfWeek = [CURRENT_CALENDAR dateByAddingComponents:componentsToSubtract toDate:self options:0];
+
+    return [firstDayOfWeek dateAtStartOfDay];
+}
+
+- (NSDate *) dateAtEndOfWeek
+{
+    return [[[self dateAtStartOfWeek] dateByAddingDays:7] dateByAddingTimeInterval:-1];
+}
+
+- (NSDate *) dateAtStartOfMonth
+{
+    NSDateComponents *comp = [CURRENT_CALENDAR components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:self];
+    [comp setDay:1];
+    NSDate *firstDayOfMonth = [CURRENT_CALENDAR dateFromComponents:comp];
+    return [firstDayOfMonth dateAtStartOfDay];
+}
+
+- (NSDate *) dateAtEndOfMonth
+{
+    /*
+     To get the end of the month we get the date at start of next month first
+     */
+    NSDateComponents *componentsToAdd = [[NSDateComponents alloc] init];
+    [componentsToAdd setDay:15];
+    NSDate *dateInNextMonth = self;
+    while ([dateInNextMonth isSameMonthAsDate:self]) {
+        dateInNextMonth = [CURRENT_CALENDAR dateByAddingComponents:componentsToAdd toDate:dateInNextMonth options:0];
+    }
+    return [[dateInNextMonth dateAtStartOfDay] dateByAddingTimeInterval:-1];
+}
+
 - (NSDateComponents *) componentsWithOffsetFromDate: (NSDate *) aDate
 {
 	NSDateComponents *dTime = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:aDate toDate:self options:0];
