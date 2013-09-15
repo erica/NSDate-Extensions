@@ -11,9 +11,10 @@
 */
 
 #import "NSDate-Utilities.h"
+#import "FRPSystemCalendarCache.h"
 
 #define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
-#define CURRENT_CALENDAR [NSCalendar currentCalendar]
+#define CURRENT_CALENDAR [FRPSystemCalendarCache sharedInstance].currentCalendarCached
 
 @implementation NSDate (Utilities)
 
