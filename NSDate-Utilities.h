@@ -14,6 +14,8 @@
 
 @interface NSDate (Utilities)
 
++(NSCalendar *)currentCalendar;
+
 // Relative dates from the current date
 + (NSDate *) dateTomorrow;
 + (NSDate *) dateYesterday;
