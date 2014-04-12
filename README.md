@@ -1,3 +1,6 @@
+- I forked NSDate-Extensions because I found myself adding methods to it.  
+-- 04-11-14 Added 5 methods for the part of day (morning, evening, afternoon and night)
+
 **README**
 
 I am often swamped, so updating this repository (sadly) tends to fall off my to-do list. I'm fixing it up now in preparation for the iOS 6 Cookbook. 
