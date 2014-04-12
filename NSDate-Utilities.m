@@ -371,4 +371,62 @@
 	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
 	return components.year;
 }
+
+- (BOOL)isMorning{
+    //if time is between 5:00 AM and 11:59 AM return YES
+    
+    if ([self hour] < 12 && [self hour] >= 5) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+- (BOOL)isAfternoon{
+    //if time is between 12:00 PM and 5:59 PM return YES
+    
+    if ([self hour] < 18 && [self hour] >= 12) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+- (BOOL)isEvening{
+    //if time is between 6:00 PM and 9:59 PM return YES
+    
+    if ([self hour] < 22 && [self hour] >= 18) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+- (BOOL)isNight{
+    //if time is between 10:00 PM and 3:59 AM return YES
+    
+    if ([self hour] < 24 && [self hour] >= 22) {
+        return YES;
+    }else if([self hour] < 5 && [self hour] >= 0){
+        return YES;
+    }else{
+        return NO;
+    }
+}
+- (NSString *)nameOfThePartOfDay{
+    if([self isMorning]){
+        NSLog(@"morning, hour: %ld", (long)[self hour]);
+        return @"morning";
+    }else if([self isAfternoon]){
+        NSLog(@"afternoon, hour: %ld", (long)[self hour]);
+        return @"afternoon";
+    }else if([self isEvening]){
+        NSLog(@"evening, hour: %ld", (long)[self hour]);
+        return @"evening";
+    }else if([self isNight]){
+        NSLog(@"night, hour: %ld", (long)[self hour]);
+        return @"night";
+    }else{
+        NSLog(@"Error with whatStageOfDay, hour: %ld", (long)[self hour]);
+        return nil;
+    }
+}
+
 @end

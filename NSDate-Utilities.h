@@ -77,4 +77,11 @@
 @property (readonly) NSInteger weekday;
 @property (readonly) NSInteger nthWeekday; // e.g. 2nd Tuesday of the month == 2
 @property (readonly) NSInteger year;
+
+// What time/stage of day is the date?
+- (BOOL) isMorning;     //ABT addition
+- (BOOL) isAfternoon;   //ABT addition
+- (BOOL) isEvening;     //ABT addition
+- (BOOL) isNight;       //ABT addition
+- (NSString *) nameOfThePartOfDay;
 @end
