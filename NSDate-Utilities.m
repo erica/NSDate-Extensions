@@ -412,19 +412,19 @@
 }
 - (NSString *)nameOfThePartOfDay{
     if([self isMorning]){
-        NSLog(@"morning, hour: %ld", (long)[self hour]);
+        //NSLog(@"morning, hour: %ld", (long)[self hour]);
         return @"morning";
     }else if([self isAfternoon]){
-        NSLog(@"afternoon, hour: %ld", (long)[self hour]);
+        //NSLog(@"afternoon, hour: %ld", (long)[self hour]);
         return @"afternoon";
     }else if([self isEvening]){
-        NSLog(@"evening, hour: %ld", (long)[self hour]);
+        //NSLog(@"evening, hour: %ld", (long)[self hour]);
         return @"evening";
     }else if([self isNight]){
-        NSLog(@"night, hour: %ld", (long)[self hour]);
+        //NSLog(@"night, hour: %ld", (long)[self hour]);
         return @"night";
     }else{
-        NSLog(@"Error with whatStageOfDay, hour: %ld", (long)[self hour]);
+        //NSLog(@"Error with whatStageOfDay, hour: %ld", (long)[self hour]);
         return nil;
     }
 }
