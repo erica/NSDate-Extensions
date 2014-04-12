@@ -79,9 +79,9 @@
 @property (readonly) NSInteger year;
 
 // What time/stage of day is the date?
-- (BOOL) isMorning;     //ABT addition
-- (BOOL) isAfternoon;   //ABT addition
-- (BOOL) isEvening;     //ABT addition
-- (BOOL) isNight;       //ABT addition
+- (BOOL) isMorning;     
+- (BOOL) isAfternoon;  
+- (BOOL) isEvening;     
+- (BOOL) isNight;       
 - (NSString *) nameOfThePartOfDay;
 @end
