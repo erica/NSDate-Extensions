@@ -10,7 +10,7 @@
  General Thanks: sstreza, Scott Lawrence, Kevin Ballard, NoOneButMe, Avi`, August Joki. Emanuele Vulcano, jcromartiej, Blagovest Dachev, Matthias Plappert,  Slava Bushtruk, Ali Servet Donmez, Ricardo1980, pip8786, Danny Thuerin, Dennis Madsen
 */
 
-#import "NSDate-Utilities.h"
+#import "NSDate+Utilities.h"
 
 #define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
 #define CURRENT_CALENDAR [NSCalendar currentCalendar]
@@ -154,6 +154,18 @@
     return [self isSameMonthAsDate:[NSDate date]];
 }
 
+- (BOOL) isLastMonth
+{
+#pragma message "Not tested yet"
+    return [self isSameMonthAsDate:[[NSDate date] dateBySubtractingMonths:1]];
+}
+
+- (BOOL) isNextMonth
+{
+#pragma message "Not tested yet"
+    return [self isSameMonthAsDate:[[NSDate date] dateByAddingMonths:1]];
+}
+
 - (BOOL) isSameYearAsDate: (NSDate *) aDate
 {
 	NSDateComponents *components1 = [CURRENT_CALENDAR components:NSYearCalendarUnit fromDate:self];
@@ -222,6 +234,21 @@
 }
 
 #pragma mark Adjusting Dates
+
+#pragma message "Not tested yet"
+- (NSDate *) dateByAddingMonths: (NSInteger) dMonths
+{
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setMonth:dMonths];
+    NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self options:0];
+    return newDate;
+}
+
+#pragma message "Not tested yet"
+- (NSDate *) dateBySubtractingMonths: (NSInteger) dMonths
+{
+    return [self dateByAddingMonths:-dMonths];
+}
 
 // Courtesy of dedan who mentions issues with Daylight Savings
 - (NSDate *) dateByAddingDays: (NSInteger) dDays

@@ -36,6 +36,8 @@
 - (BOOL) isLastWeek;
 - (BOOL) isSameMonthAsDate: (NSDate *) aDate; 
 - (BOOL) isThisMonth;
+- (BOOL) isNextMonth;
+- (BOOL) isLastMonth;
 - (BOOL) isSameYearAsDate: (NSDate *) aDate;
 - (BOOL) isThisYear;
 - (BOOL) isNextYear;
@@ -50,6 +52,8 @@
 - (BOOL) isTypicallyWeekend;
 
 // Adjusting dates
+- (NSDate *) dateByAddingMonths: (NSInteger) dMonths;
+- (NSDate *) dateBySubtractingMonths: (NSInteger) dMonths;
 - (NSDate *) dateByAddingDays: (NSInteger) dDays;
 - (NSDate *) dateBySubtractingDays: (NSInteger) dDays;
 - (NSDate *) dateByAddingHours: (NSInteger) dHours;
