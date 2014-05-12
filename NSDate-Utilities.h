@@ -13,6 +13,7 @@
 #define D_YEAR		31556926
 
 @interface NSDate (Utilities)
++ (NSCalendar *) currentCalendar; // avoid bottlenecks
 
 // Relative dates from the current date
 + (NSDate *) dateTomorrow;

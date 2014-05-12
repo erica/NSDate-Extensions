@@ -17,6 +17,19 @@
 
 @implementation NSDate (Utilities)
 
+// Courtesy of Lukasz Margielewski
++ (NSCalendar *) currentCalendar
+{
+    static dispatch_once_t pred;
+    static __strong NSCalendar *sharedCalendar = nil;
+    
+    dispatch_once(&pred, ^{
+        sharedCalendar = [NSCalendar autoupdatingCurrentCalendar];
+    });
+    
+    return sharedCalendar;
+}
+
 #pragma mark Relative Dates
 
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days
@@ -210,11 +223,13 @@
 
 #pragma mark Adjusting Dates
 
+// Courtesy of dedan who mentions issues with Daylight Savings
 - (NSDate *) dateByAddingDays: (NSInteger) dDays
 {
-	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_DAY * dDays;
-	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
-	return newDate;		
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setDay:dDays];
+    NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self options:0];
+    return newDate;
 }
 
 - (NSDate *) dateBySubtractingDays: (NSInteger) dDays
