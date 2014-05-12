@@ -219,6 +219,7 @@
     return [self isSameMonthAsDate:[NSDate date]];
 }
 
+// Thanks Marcin Krzyzanowski, also for adding/subtracting years and months
 - (BOOL) isLastMonth
 {
     return [self isSameMonthAsDate:[[NSDate date] dateBySubtractingMonths:1]];
