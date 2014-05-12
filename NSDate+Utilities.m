@@ -8,6 +8,8 @@
  #import <humor.h> : Not planning to implement: dateByAskingBoyOut and dateByGettingBabysitter
  ----
  General Thanks: sstreza, Scott Lawrence, Kevin Ballard, NoOneButMe, Avi`, August Joki. Emanuele Vulcano, jcromartiej, Blagovest Dachev, Matthias Plappert,  Slava Bushtruk, Ali Servet Donmez, Ricardo1980, pip8786, Danny Thuerin, Dennis Madsen
+ 
+ Include GMT and time zone utilities?
 */
 
 #import "NSDate+Utilities.h"
@@ -30,7 +32,7 @@
     return sharedCalendar;
 }
 
-#pragma mark Relative Dates
+#pragma mark - Relative Dates
 
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days
 {
@@ -82,7 +84,70 @@
 	return newDate;		
 }
 
-#pragma mark Comparing Dates
+#pragma mark - String Properties
+- (NSString *) stringWithFormat: (NSString *) format
+{
+    NSDateFormatter *formatter = [NSDateFormatter new];
+//    formatter.locale = [NSLocale currentLocale]; // Necessary?
+    formatter.dateFormat = format;
+    return [formatter stringFromDate:self];
+}
+
+- (NSString *) stringWithDateStyle: (NSDateFormatterStyle) dateStyle timeStyle: (NSDateFormatterStyle) timeStyle
+{
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateStyle = dateStyle;
+    formatter.timeStyle = timeStyle;
+//    formatter.locale = [NSLocale currentLocale]; // Necessary?
+    return [formatter stringFromDate:self];
+}
+
+- (NSString *) shortString
+{
+    return [self stringWithDateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
+}
+
+- (NSString *) shortTimeString
+{
+    return [self stringWithDateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterShortStyle];
+}
+
+- (NSString *) shortDateString
+{
+    return [self stringWithDateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
+}
+
+- (NSString *) mediumString
+{
+    return [self stringWithDateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle ];
+}
+
+- (NSString *) mediumTimeString
+{
+    return [self stringWithDateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterMediumStyle ];
+}
+
+- (NSString *) mediumDateString
+{
+    return [self stringWithDateStyle:NSDateFormatterMediumStyle  timeStyle:NSDateFormatterNoStyle];
+}
+
+- (NSString *) longString
+{
+    return [self stringWithDateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterLongStyle ];
+}
+
+- (NSString *) longTimeString
+{
+    return [self stringWithDateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterLongStyle ];
+}
+
+- (NSString *) longDateString
+{
+    return [self stringWithDateStyle:NSDateFormatterLongStyle  timeStyle:NSDateFormatterNoStyle];
+}
+
+#pragma mark - Comparing Dates
 
 - (BOOL) isEqualToDateIgnoringTime: (NSDate *) aDate
 {
@@ -156,13 +221,11 @@
 
 - (BOOL) isLastMonth
 {
-#pragma message "Not tested yet"
     return [self isSameMonthAsDate:[[NSDate date] dateBySubtractingMonths:1]];
 }
 
 - (BOOL) isNextMonth
 {
-#pragma message "Not tested yet"
     return [self isSameMonthAsDate:[[NSDate date] dateByAddingMonths:1]];
 }
 
@@ -218,7 +281,7 @@
 }
 
 
-#pragma mark Roles
+#pragma mark - Roles
 - (BOOL) isTypicallyWeekend
 {
     NSDateComponents *components = [CURRENT_CALENDAR components:NSWeekdayCalendarUnit fromDate:self];
@@ -233,9 +296,21 @@
     return ![self isTypicallyWeekend];
 }
 
-#pragma mark Adjusting Dates
+#pragma mark - Adjusting Dates
 
-#pragma message "Not tested yet"
+- (NSDate *) dateByAddingYears: (NSInteger) dYears
+{
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setYear:dYears];
+    NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self options:0];
+    return newDate;
+}
+
+- (NSDate *) dateBySubtractingYears: (NSInteger) dYears
+{
+    return [self dateByAddingYears:-dYears];
+}
+
 - (NSDate *) dateByAddingMonths: (NSInteger) dMonths
 {
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
@@ -244,7 +319,6 @@
     return newDate;
 }
 
-#pragma message "Not tested yet"
 - (NSDate *) dateBySubtractingMonths: (NSInteger) dMonths
 {
     return [self dateByAddingMonths:-dMonths];
@@ -303,7 +377,7 @@
 	return dTime;
 }
 
-#pragma mark Retrieving Intervals
+#pragma mark - Retrieving Intervals
 
 - (NSInteger) minutesAfterDate: (NSDate *) aDate
 {
@@ -350,7 +424,7 @@
     return components.day;
 }
 
-#pragma mark Decomposing Dates
+#pragma mark - Decomposing Dates
 
 - (NSInteger) nearestHour
 {
