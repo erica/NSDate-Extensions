@@ -363,6 +363,14 @@
 	return [self dateByAddingMinutes: (dMinutes * -1)];
 }
 
+- (NSDateComponents *) componentsWithOffsetFromDate: (NSDate *) aDate
+{
+	NSDateComponents *dTime = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:aDate toDate:self options:0];
+	return dTime;
+}
+
+#pragma mark - Extremes
+
 - (NSDate *) dateAtStartOfDay
 {
 	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
@@ -372,10 +380,14 @@
 	return [CURRENT_CALENDAR dateFromComponents:components];
 }
 
-- (NSDateComponents *) componentsWithOffsetFromDate: (NSDate *) aDate
+// Thanks gsempe & mteece
+- (NSDate *) dateAtEndOfDay
 {
-	NSDateComponents *dTime = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:aDate toDate:self options:0];
-	return dTime;
+	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
+	components.hour = 11;
+	components.minute = 59;
+	components.second = 59;
+	return [CURRENT_CALENDAR dateFromComponents:components];
 }
 
 #pragma mark - Retrieving Intervals
