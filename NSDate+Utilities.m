@@ -385,7 +385,7 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
 - (NSDate *) dateAtEndOfDay
 {
 	NSDateComponents *components = [[NSDate currentCalendar] components:componentFlags fromDate:self];
-	components.hour = 11;
+	components.hour = 23; // Thanks Aleksey Kononov
 	components.minute = 59;
 	components.second = 59;
 	return [[NSDate currentCalendar] dateFromComponents:components];
