@@ -325,7 +325,7 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
 - (NSDate *) dateByAddingHours: (NSInteger) dHours
 {
     NSDateComponents *components = [[NSDateComponents alloc] init];
-    components.hours = dHours;
+    components.hour = dHours;
     return [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:self options:0];
 }
 
