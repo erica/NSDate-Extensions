@@ -414,7 +414,13 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
 // I have not yet thoroughly tested this
 - (NSInteger)distanceInDaysToDate:(NSDate *)anotherDate
 {
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
+    NSString *calendarIdentifier = NSCalendarIdentifierGregorian;
+#else
+    NSString *calendarIdentifier = NSGregorianCalendar;
+#endif
+    
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:calendarIdentifier];
     NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay fromDate:self toDate:anotherDate options:0];
     return components.day;
 }
