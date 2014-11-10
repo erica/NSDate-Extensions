@@ -29,6 +29,22 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
     return sharedCalendar;
 }
 
+#pragma mark - Date for time of day
+
+/*
+ * NOTE: NSCalendar::dateBySettingHour:minute:second:ofDate:options: negates the need for this API.
+ *       This method and implementation are provided in order to make this convenient on iOS 7.
+ */
+- (NSDate *) dateBySettingHour:(NSInteger)hour minute:(NSInteger) minute second:(NSInteger)second
+{
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *comp = [cal components:(NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:self];
+    comp.hour = hour;
+    comp.minute = minute;
+    comp.second = second;
+    return [cal dateFromComponents:comp];
+}
+
 #pragma mark - Relative Dates
 
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days
