@@ -38,7 +38,13 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
 - (NSDate *) dateBySettingHour:(NSInteger)hour minute:(NSInteger) minute second:(NSInteger)second
 {
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *comp = [cal components:(NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:self];
+    NSDateComponents *comp = [cal components:(NSYearCalendarUnit
+                                              | NSMonthCalendarUnit
+                                              | NSDayCalendarUnit
+                                              | NSHourCalendarUnit
+                                              | NSMinuteCalendarUnit
+                                              | NSSecondCalendarUnit)
+                                    fromDate:self];
     comp.hour = hour;
     comp.minute = minute;
     comp.second = second;
