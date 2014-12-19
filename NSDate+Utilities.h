@@ -85,6 +85,8 @@
 // Date extremes
 - (NSDate *) dateAtStartOfDay;
 - (NSDate *) dateAtEndOfDay;
+- (NSDate *) dateAtStartOfMonth;
+- (NSDate *) dateAtEndOfMonth;
 
 // Retrieving intervals
 - (NSInteger) minutesAfterDate: (NSDate *) aDate;
