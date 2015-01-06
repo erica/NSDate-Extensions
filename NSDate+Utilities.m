@@ -435,6 +435,42 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
     return components.day;
 }
 
+#pragma mark - Dates round figures
+
+-(NSDate *)cutOffMillisecond
+{
+    return [NSDate dateWithTimeIntervalSince1970:floor(self.timeIntervalSince1970)];
+}
+
+-(NSDate *)cutOffSeconds
+{
+    int64_t dt = floor(self.timeIntervalSince1970);
+    dt -= dt % D_MINUTE;
+    return [NSDate dateWithTimeIntervalSince1970:dt];
+}
+
+-(NSDate *)cutOffMinute
+{
+    int64_t dt = floor(self.timeIntervalSince1970);
+    dt -= dt % D_HOUR;
+    return [NSDate dateWithTimeIntervalSince1970:dt];
+}
+
+-(NSDate *)cutOffHour
+{
+    int64_t dt = floor(self.timeIntervalSince1970);
+    dt -= dt % D_DAY;
+    return [NSDate dateWithTimeIntervalSince1970:dt];
+}
+
+-(NSDate *)cutOffDay
+{
+    NSDate *dt = [self dateBySubtractingDays:self.day-1];
+    dt = [dt dateBySubtractingMonths:self.month-1];
+    dt = [dt cutOffHour];
+    return dt;
+}
+
 #pragma mark - Decomposing Dates
 
 - (NSInteger) nearestHour
