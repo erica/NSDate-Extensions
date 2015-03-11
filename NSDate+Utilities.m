@@ -15,7 +15,16 @@
 #import "NSDate+Utilities.h"
 
 // Thanks, AshFurrow
-static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit);
+static const unsigned componentFlags = (
+                                        NSCalendarUnitYear
+                                        | NSCalendarUnitMonth
+                                        | NSCalendarUnitDay
+                                        | NSCalendarUnitWeekOfYear
+                                        | NSCalendarUnitHour
+                                        | NSCalendarUnitMinute
+                                        | NSCalendarUnitSecond
+                                        | NSCalendarUnitWeekday
+                                        | NSCalendarUnitWeekdayOrdinal);
 
 @implementation NSDate (Utilities)
 
@@ -30,6 +39,19 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
 }
 
 #pragma mark - Relative Dates
+
++ (NSDate *) dateWithYearsFromNow: (NSInteger) years
+{
+    // Thanks, Jim Morrison
+    return [[NSDate date] dateByAddingYears:years];
+}
+
++ (NSDate *) dateWithYearsBeforeNow: (NSInteger) years
+{
+    // Thanks, Jim Morrison
+    return [[NSDate date] dateBySubtractingYears:years];
+}
+
 
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days
 {
@@ -369,6 +391,22 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
 
 #pragma mark - Extremes
 
+- (NSDate *) dateAtStartOfHour
+{
+    NSDateComponents *components = [[NSDate currentCalendar] components:componentFlags fromDate:self];
+    components.minute = 0;
+    components.second = 0;
+    return [[NSDate currentCalendar] dateFromComponents:components];
+}
+
+- (NSDate *) dateAtEndOfHour
+{
+    NSDateComponents *components = [[NSDate currentCalendar] components:componentFlags fromDate:self];
+    components.minute = 59;
+    components.second = 59;
+    return [[NSDate currentCalendar] dateFromComponents:components];
+}
+
 - (NSDate *) dateAtStartOfDay
 {
 	NSDateComponents *components = [[NSDate currentCalendar] components:componentFlags fromDate:self];
@@ -386,6 +424,70 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
 	components.minute = 59;
 	components.second = 59;
 	return [[NSDate currentCalendar] dateFromComponents:components];
+}
+
+- (NSDate *) dateAtStartOfWeek
+{
+    // See http://stackoverflow.com/a/3519414/2431627
+    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    
+    // Get the weekday component of the current date
+    NSDateComponents *weekdayComponents = [gregorian components:NSCalendarUnitWeekday fromDate:self];
+    /*
+     Create a date components to represent the number of days to subtract
+     from the current date. The weekday value for Sunday in the Gregorian calendar is 1, so
+     subtract 1 from the number of days to subtract from the date in question.  (If today's Sunday,
+     subtract 0 days.)
+     */
+    NSDateComponents *componentsToSubtract = [[NSDateComponents alloc] init];
+    /* Substract [gregorian firstWeekday] to handle first day of the week being something else than Sunday */
+    //    [componentsToSubtract setDay: - ([weekdayComponents weekday] - [gregorian firstWeekday])];
+    // See http://stackoverflow.com/a/8546970/2431627
+    [componentsToSubtract setDay: - ((([weekdayComponents weekday] - [gregorian firstWeekday]) + 7 ) % 7)];
+    NSDate *beginningOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:self options:0];
+    
+    /*
+     Optional step: beginningOfWeek now has the same hour, minute, and second as the
+     original date (today). To normalize to midnight, extract the year, month, and day components
+     and create a new date from those components.
+     */
+    NSDateComponents *components = [gregorian components: (NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay)
+                                                fromDate: beginningOfWeek];
+    beginningOfWeek = [gregorian dateFromComponents: components];
+
+    return beginningOfWeek;
+}
+
+// Thanks gsempe & mteece
+- (NSDate *) dateAtEndOfWeek
+{
+    NSDateComponents *components = [[NSDate currentCalendar] components:componentFlags fromDate:self];
+    components.hour = 23; // Thanks Aleksey Kononov
+    components.minute = 59;
+    components.second = 59;
+    components.weekday = 7;
+    return [[NSDate currentCalendar] dateFromComponents:components];
+}
+
+- (NSDate *) dateAtStartOfMonth
+{
+    NSDateComponents *components = [[NSDate currentCalendar] components:componentFlags fromDate:self];
+    components.day = 1;
+    components.hour = 0;
+    components.minute = 0;
+    components.second = 0;
+    return [[NSDate currentCalendar] dateFromComponents:components];
+}
+
+- (NSDate *) dateAtEndOfMonth
+{
+    NSDateComponents *components = [[NSDate currentCalendar] components:componentFlags fromDate:self];
+    components.month += 1;
+    components.day = 1;
+    components.hour = 0;
+    components.minute = 0;
+    components.second = 0;
+    return [[[NSDate currentCalendar] dateFromComponents:components] dateByAddingTimeInterval:-1];
 }
 
 #pragma mark - Retrieving Intervals
