@@ -490,6 +490,29 @@ static const unsigned componentFlags = (
     return [[[NSDate currentCalendar] dateFromComponents:components] dateByAddingTimeInterval:-1];
 }
 
+- (NSDate *) dateAtStartOfYear
+{
+    NSDateComponents *components = [[NSDate currentCalendar] components:componentFlags fromDate:self];
+    components.month = 1;
+    components.day = 1;
+    components.hour = 0;
+    components.minute = 0;
+    components.second = 0;
+    return [[NSDate currentCalendar] dateFromComponents:components];
+}
+
+- (NSDate *) dateAtEndOfYear
+{
+    NSDateComponents *components = [[NSDate currentCalendar] components:componentFlags fromDate:self];
+    components.year += 1;
+    components.month = 1;
+    components.day = 1;
+    components.hour = 0;
+    components.minute = 0;
+    components.second = 0;
+    return [[[NSDate currentCalendar] dateFromComponents:components] dateByAddingTimeInterval:-1];
+}
+
 #pragma mark - Retrieving Intervals
 
 - (NSInteger) minutesAfterDate: (NSDate *) aDate
