@@ -38,12 +38,12 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
 - (NSDate *) dateBySettingHour:(NSInteger)hour minute:(NSInteger) minute second:(NSInteger)second
 {
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *comp = [cal components:(NSYearCalendarUnit
-                                              | NSMonthCalendarUnit
-                                              | NSDayCalendarUnit
-                                              | NSHourCalendarUnit
-                                              | NSMinuteCalendarUnit
-                                              | NSSecondCalendarUnit)
+    NSDateComponents *comp = [cal components:(NSCalendarUnitYear
+                                              | NSCalendarUnitMonth
+                                              | NSCalendarUnitDay
+                                              | NSCalendarUnitHour
+                                              | NSCalendarUnitMinute
+                                              | NSCalendarUnitSecond)
                                     fromDate:self];
     comp.hour = hour;
     comp.minute = minute;
@@ -432,8 +432,6 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
 	return (NSInteger) (ti / D_DAY);
 }
 
-// Thanks, dmitrydims
-// I have not yet thoroughly tested this
 - (NSInteger)distanceInDaysToDate:(NSDate *)anotherDate
 {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
@@ -451,7 +449,7 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
 
 - (NSInteger) nearestHour
 {
-	NSDateComponents *components = [[NSDate currentCalendar] components:NSHourCalendarUnit
+	NSDateComponents *components = [[NSDate currentCalendar] components:NSCalendarUnitHour
                                                                fromDate:[[NSDate date] dateByAddingMinutes:30]];
 	return components.hour;
 }
