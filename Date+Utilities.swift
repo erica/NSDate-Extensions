@@ -84,7 +84,10 @@ public extension Date {
     public static var now: Date { return Date(timeIntervalSinceNow: 0) }
     
     /// Returns an ISO 8601 formatter
-    public static var iso8601Formatter: DateFormatter = { $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"; return $0 }(DateFormatter())
+    public static var iso8601Formatter: DateFormatter = {
+        $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        $0.locale = Locale(identifier: "en_US_POSIX")
+        return $0 }(DateFormatter())
     /// Returns a short style date formatter
     public static var shortDateFormatter: DateFormatter = { $0.dateStyle = .short; return $0 }(DateFormatter())
     /// Returns a medium style date formatter
@@ -217,12 +220,11 @@ extension Date {
     /// Returns true if date falls after current date
     public var isFuture: Bool { return self > Date.now }
     
-    /// Returns true if date falls on typical weekend for Western countries
+    /// Returns true if date falls on typical weekend
     public var isTypicallyWeekend: Bool {
-        let components = self.allComponents
-        return components.weekday == 1 || components.weekday == 7
+        return Date.sharedCalendar.isDateInWeekend(self)
     }
-    /// Returns true if date falls on typical workday for Western countries
+    /// Returns true if date falls on typical workday
     public var isTypicallyWorkday: Bool { return !self.isTypicallyWeekend }
 }
 
@@ -284,12 +286,14 @@ public extension Date {
     ///
     /// - Warning: returns 0 for any error when fetching component
     public func offsets(to date: Date) -> (days: Int, hours: Int, minutes: Int, seconds: Int) {
-        let components = Date.sharedCalendar.dateComponents([.day, .hour, .minute, .second], from: self, to: date.addingTimeInterval(0.5)) // round up
+        let components = Date.sharedCalendar
+            .dateComponents([.day, .hour, .minute, .second],
+                            from: self, to: date.addingTimeInterval(0.5)) // round up
         return (
-            days: components.day ?? 0,
-            hours: components.hour ?? 0,
-            minutes: components.minute ?? 0,
-            seconds: components.second ?? 0
+            days: components[.day] ?? 0,
+            hours: components[.hour] ?? 0,
+            minutes: components[.minute] ?? 0,
+            seconds: components[.second] ?? 0
         )
     }
 }
@@ -332,17 +336,17 @@ extension Date {
     /// Returns a date representing a second before midnight at the end of today
     public static var endOfToday: Date { return Date.now.endOfDay }
     
-    /// Determines whether two days share the same day, month, and year
+    /// Determines whether two days share the same date
     public static func sameDate(_ date1: Date, _ date2: Date) -> Bool {
-        return date1.startOfDay == date2.startOfDay
+        return Date.sharedCalendar.isDate(date1, inSameDayAs: date2)
     }
     
     /// Returns true if this date is the same date as today for the user's preferred calendar
-    public var isToday: Bool { return Date.sameDate(self, Date.today) }
+    public var isToday: Bool { return Date.sharedCalendar.isDateInToday(self) }
     /// Returns true if this date is the same date as tomorrow for the user's preferred calendar
-    public var isTomorrow: Bool { return Date.sameDate(self, Date.tomorrow) }
+    public var isTomorrow: Bool { return Date.sharedCalendar.isDateInTomorrow(self) }
     /// Returns true if this date is the same date as yesterday for the user's preferred calendar
-    public var isYesterday: Bool { return Date.sameDate(self, Date.yesterday) }
+    public var isYesterday: Bool { return Date.sharedCalendar.isDateInTomorrow(self) }
     
     /// Returns the start of the instance's week of year for user's preferred calendar
     public var startOfWeek: Date {
