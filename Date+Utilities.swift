@@ -113,6 +113,8 @@ public extension Date {
     /// ```
     /// let afterThreeDays = date.offset(.day, 3)
     /// ```
+    ///
+    /// Not all components or offsets are useful
     public func offset(_ component: Calendar.Component, _ count: Int) -> Date {
         var newComponent: DateComponents = DateComponents(second: 0)
         switch component {
@@ -254,12 +256,12 @@ extension Date {
     /// Returns true if date falls after current date
     public var isFuture: Bool { return self > Date.now }
     
-    /// Returns true if date falls on typical weekend for Westernized countries
+    /// Returns true if date falls on typical weekend for Western countries
     public var isTypicallyWeekend: Bool {
         let components = self.allComponents
         return components.weekday == 1 || components.weekday == 7
     }
-    /// Returns true if date falls on typical workday for Westernized countries
+    /// Returns true if date falls on typical workday for Western countries
     public var isTypicallyWorkday: Bool { return !self.isTypicallyWeekend }
 }
 
