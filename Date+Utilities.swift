@@ -51,32 +51,34 @@ public extension Int {
 
 public extension Date {
     public static var dateComponents: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second, .nanosecond]
+    
     public static var allComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second, .weekday, .weekdayOrdinal, .quarter, .weekOfMonth, .weekOfYear, .yearForWeekOfYear, .nanosecond, .calendar, .timeZone]
-
+    
     public var components: DateComponents { return Date.sharedCalendar.dateComponents(Date.dateComponents, from: self) }
     public var allComponents: DateComponents { return Date.sharedCalendar.dateComponents(Date.allComponents, from: self) }
-    
     public var interval: TimeInterval { return self.timeIntervalSinceReferenceDate }
     
     public static var sharedCalendar = NSCalendar.autoupdatingCurrent
     
-    public static var today: Date {
-        let components = Date.now.components
+    public var startOfDay: Date {
         let midnight = DateComponents(year: components.year, month: components.month, day: components.day)
-        return Date.sharedCalendar.date(from: midnight) ?? Date.now
+        return Date.sharedCalendar.date(from: midnight) ?? self
     }
+    public static var today: Date { return Date.now.startOfDay }
     public static var tomorrow: Date { return Date.today + 1.days }
     public static var yesterday: Date { return Date.today - 1.days }
-    public static var endOfToday: Date { return Date.tomorrow - 1.seconds }
-
+    
+    public var endOfDay: Date { return (self + 1.days).startOfDay - 1.seconds }
+    public static var endOfToday: Date { return Date.now.endOfDay }
+    
     public static func sameDate(_ date1: Date, _ date2: Date) -> Bool {
         let components1 = date1.components
         let components2 = date2.components
         
         return
             components1.year  == components2.year &&
-            components1.month == components2.month &&
-            components1.day   == components2.day
+                components1.month == components2.month &&
+                components1.day   == components2.day
     }
     
     public var isToday: Bool { return Date.sameDate(self, Date.today) }
@@ -92,10 +94,12 @@ public extension Date {
     public static var nextWeek: Date { return thisWeek + 1.weeks }
     public static var lastWeek: Date { return thisWeek - 1.weeks }
     
+    // This kind of sucks but it's useful enough to keep around
     public static func sameWeek(_ date1: Date, _ date2: Date) -> Bool {
-        // dates within 1 week of each other
-        guard abs(date1.interval - date2.interval) < Date.week else { return false }
-
+        // dates within 1 week of each other more or less, increasing
+        // tolerance for DST changes. Thanks Omni Greg Titus
+        guard abs(date1.interval - date2.interval) <= 8.days else { return false }
+        
         // Must be same week. 12/31 and 1/1 will both be week "1" if they are in the same week
         let components1 = date1.allComponents
         let components2 = date2.allComponents
@@ -119,7 +123,7 @@ public extension Date {
         let theyear = DateComponents(year: year + 1)
         return Date.sharedCalendar.date(from: theyear) ?? fallback
     }
-
+    
     public static var lastYear: Date {
         let components = Date.now.components
         let fallback = Date(timeInterval: -52.0 * Date.week, since: Date.thisYear)
@@ -127,7 +131,7 @@ public extension Date {
         let theyear = DateComponents(year: year - 1)
         return Date.sharedCalendar.date(from: theyear) ?? fallback
     }
-
+    
     
     public static func sameYear(_ date1: Date, _ date2: Date) -> Bool {
         let components1 = date1.allComponents
@@ -150,16 +154,28 @@ public extension Date {
 }
 
 public extension Date {
+    public func intervalTo(_ date: Date) -> TimeInterval {
+        return date.interval - self.interval
+    }
     public func distanceTo(_ date: Date, component: Calendar.Component) -> Int {
         let gregorian = Calendar(identifier: .gregorian)
         let theNow = gregorian.component(component, from: self)
         let theThen = gregorian.component(component, from: date)
         return theThen - theNow
     }
-    public func daysTo(_ date: Date) -> Int { return distanceTo(date, component: .day) }
-    public func hoursTo(_ date: Date) -> Int { return distanceTo(date, component: .hour) }
-    public func minutesTo(_ date: Date) -> Int { return distanceTo(date, component: .minute) }
-    public func secondsTo(_ date: Date) -> Int { return distanceTo(date, component: .second) }
+    public func days(to date: Date) -> Int { return distanceTo(date, component: .day) }
+    public func hours(to date: Date) -> Int { return distanceTo(date, component: .hour) }
+    public func minutes(to date: Date) -> Int { return distanceTo(date, component: .minute) }
+    public func seconds(to date: Date) -> Int { return distanceTo(date, component: .second) }
+    
+    public func offset(to date: Date) -> (days: Int, hours: Int, minutes: Int, seconds: Int) {
+        var ti = Int(floor(date.interval - self.interval))
+        let seconds = ti % 60; ti = ti / 60
+        let minutes = ti % 60; ti = ti / 60
+        let hours = ti % 24; ti = ti / 24
+        let days = ti
+        return (days: days, hours: hours, minutes: minutes, seconds: seconds)
+    }
 }
 
 public extension Date {
