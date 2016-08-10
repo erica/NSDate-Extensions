@@ -132,11 +132,13 @@ public extension Date {
         case .weekOfYear: newComponent = DateComponents(weekOfYear: count)
         case .yearForWeekOfYear: newComponent = DateComponents(yearForWeekOfYear: count)
         case .nanosecond: newComponent = DateComponents(nanosecond: count)
-            // These items complete the component vocabulary but cannot be used in this way
-            // case .calendar: newComponent = DateComponents(calendar: count)
+        // These items complete the component vocabulary but cannot be used in this way
+        // case .calendar: newComponent = DateComponents(calendar: count)
         // case .timeZone: newComponent = DateComponents(timeZone: count)
         default: break
         }
+        
+        // If offset is not possible, return unmodified date
         return Date.sharedCalendar.date(byAdding: newComponent, to: self) ?? self
     }
 }
@@ -287,6 +289,7 @@ extension Date {
     /// Returns a date representing midnight at the start of this day
     public var startOfDay: Date {
         let midnight = DateComponents(year: components.year, month: components.month, day: components.day)
+        // If offset is not possible, return unmodified date
         return Date.sharedCalendar.date(from: midnight) ?? self
     }
     /// Returns a date representing midnight at the start of this day.
@@ -330,6 +333,7 @@ extension Date {
     public var startOfWeek: Date {
         let components = self.allComponents
         let startOfWeekComponents = DateComponents(weekOfYear: components.weekOfYear, yearForWeekOfYear: components.yearForWeekOfYear)
+        // If offset is not possible, return unmodified date
         return Date.sharedCalendar.date(from: startOfWeekComponents) ?? self
     }
     /// Returns the start of the current week of year for user's preferred calendar
@@ -354,20 +358,6 @@ extension Date {
         return startOfWeek1.interval == startOfWeek2.interval
     }
     
-    /// Returns true if two weeks likely fall within the same week of year
-    /// in the same year, or very nearly the same year
-    //    public static func sameWeek(_ date1: Date, _ date2: Date) -> Bool {
-    //        // This kind of sucks but it's useful enough to keep around
-    //        // dates within 1 week of each other more or less, increasing
-    //        // tolerance for DST changes. Thanks Omni Greg Titus
-    //        guard abs(date1.interval - date2.interval) <= 8.days else { return false }
-    //
-    //        // Must be same week. 12/31 and 1/1 will both be week "1" if they are in the same week
-    //        let components1 = date1.allComponents
-    //        let components2 = date2.allComponents
-    //        return components1.weekOfYear == components2.weekOfYear
-    //    }    
-    
     /// Returns true if date likely falls within the current week of year
     public var isThisWeek: Bool { return Date.sameWeek(self, Date.thisWeek) }
     /// Returns true if date likely falls within the next week of year
@@ -379,6 +369,7 @@ extension Date {
     public static var thisYear: Date {
         let components = Date.now.components
         let theyear = DateComponents(year: components.year)
+        // If offset is not possible, return unmodified date
         return Date.sharedCalendar.date(from: theyear) ?? Date.now
     }
     /// Returns the start of next year for the user's preferred calendar
