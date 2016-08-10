@@ -288,10 +288,10 @@ public extension Date {
             .dateComponents([.day, .hour, .minute, .second],
                             from: self, to: date.addingTimeInterval(0.5)) // round up
         return (
-            days: components[.day] ?? 0,
-            hours: components[.hour] ?? 0,
-            minutes: components[.minute] ?? 0,
-            seconds: components[.second] ?? 0
+            days: components.day ?? 0,
+            hours: components.hour ?? 0,
+            minutes: components.minute ?? 0,
+            seconds: components.second ?? 0
         )
     }
 }
