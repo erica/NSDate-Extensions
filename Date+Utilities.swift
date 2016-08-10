@@ -132,8 +132,8 @@ public extension Date {
         case .weekOfYear: newComponent = DateComponents(weekOfYear: count)
         case .yearForWeekOfYear: newComponent = DateComponents(yearForWeekOfYear: count)
         case .nanosecond: newComponent = DateComponents(nanosecond: count)
-        // These items complete the component vocabulary but cannot be used in this way
-        // case .calendar: newComponent = DateComponents(calendar: count)
+            // These items complete the component vocabulary but cannot be used in this way
+            // case .calendar: newComponent = DateComponents(calendar: count)
         // case .timeZone: newComponent = DateComponents(timeZone: count)
         default: break
         }
@@ -353,9 +353,7 @@ extension Date {
     /// Returns true if two weeks likely fall within the same week of year
     /// in the same year, or very nearly the same year
     public static func sameWeek(_ date1: Date, _ date2: Date) -> Bool {
-        let startOfWeek1 = date1.startOfWeek
-        let startOfWeek2 = date2.startOfWeek
-        return startOfWeek1.interval == startOfWeek2.interval
+        return date1.startOfWeek == date2.startOfWeek
     }
     
     /// Returns true if date likely falls within the current week of year
