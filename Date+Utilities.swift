@@ -30,7 +30,7 @@ extension DateComponents {
         case .weekOfYear: return self.weekOfYear
         case .yearForWeekOfYear: return self.yearForWeekOfYear
         case .nanosecond: return self.nanosecond
-            // case .calendar: return self.calendar
+        // case .calendar: return self.calendar
         // case .timeZone: return self.timeZone
         default: return nil
         }
@@ -199,8 +199,8 @@ public extension Date {
         case .weekOfYear: newComponent = DateComponents(weekOfYear: count)
         case .yearForWeekOfYear: newComponent = DateComponents(yearForWeekOfYear: count)
         case .nanosecond: newComponent = DateComponents(nanosecond: count)
-            // These items complete the component vocabulary but cannot be used in this way
-            // case .calendar: newComponent = DateComponents(calendar: count)
+        // These items complete the component vocabulary but cannot be used in this way
+        // case .calendar: newComponent = DateComponents(calendar: count)
         // case .timeZone: newComponent = DateComponents(timeZone: count)
         default: break
         }
