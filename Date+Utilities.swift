@@ -141,6 +141,146 @@ public extension Date {
     }
 }
 
+// Date characteristics
+extension Date {
+    /// Returns true if date falls before current date
+    public var isPast: Bool { return self < Date.now }
+    /// Returns true if date falls after current date
+    public var isFuture: Bool { return self > Date.now }
+    
+    /// Returns true if date falls on typical weekend for Western countries
+    public var isTypicallyWeekend: Bool {
+        let components = self.allComponents
+        return components.weekday == 1 || components.weekday == 7
+    }
+    /// Returns true if date falls on typical workday for Western countries
+    public var isTypicallyWorkday: Bool { return !self.isTypicallyWeekend }
+}
+
+// Date distances
+public extension Date {
+    /// Returns the time interval between two dates
+    static public func interval(_ date1: Date, _ date2: Date) -> TimeInterval {
+        return date2.interval - date1.interval
+    }
+    /// Returns a time interval between the instance and another date
+    public func interval(to date: Date) -> TimeInterval {
+        return Date.interval(self, date)
+    }
+    
+    /// Returns the distance *in component units* between two dates
+    /// using the user's preferred calendar
+    /// - Warning: Component math only. For example, the distance in day
+    ///   between Jan 1 and Mar 13 is 12 days
+    /// e.g.
+    ///
+    /// ```
+    /// let date1 = Date.shortDateFormatter.date(from: "1/1/16")!
+    /// let date2 = Date.shortDateFormatter.date(from: "3/13/16")!
+    /// Date.distance(date1, to: date2, component: .day) // 12
+    /// ```
+    static public func distance(_ date1: Date, to date2: Date, component: Calendar.Component) -> Int {
+        let startingDateComponent = Date.sharedCalendar.component(component, from: date1)
+        let endingDateComponent = Date.sharedCalendar.component(component, from: date2)
+        return endingDateComponent - startingDateComponent
+    }
+    
+    /// Returns the distance *in component units* between the instance and another date
+    /// using the user's preferred calendar
+    /// - Warning: Component math only
+    public func distance(to date: Date, component: Calendar.Component) -> Int {
+        return Date.distance(self, to: date, component: component)
+    }
+    
+    /// Returns the number of days between the instance and a given date. May be negative
+    public func days(to date: Date) -> Int { return distance(to: date, component: .day) }
+    /// Returns the number of hours between the instance and a given date. May be negative
+    public func hours(to date: Date) -> Int { return distance(to: date, component: .hour) }
+    /// Returns the number of minutes between the instance and a given date. May be negative
+    public func minutes(to date: Date) -> Int { return distance(to: date, component: .minute) }
+    /// Returns the number of seconds between the instance and a given date. May be negative
+    public func seconds(to date: Date) -> Int { return distance(to: date, component: .second) }
+    
+    // This implementation *does not* return the numbers you're looking for
+    //
+    //    public func offsets(to date: Date) -> (days: Int, hours: Int, minutes: Int, seconds: Int) {
+    //        let days = self.distance(to: date, component: .day)
+    //        let hours = self.distance(to: date, component: .hour)
+    //        let minutes = self.distance(to: date, component: .minute)
+    //        let seconds = self.distance(to: date, component: .second)
+    //        return (days: days, hours: hours, minutes: minutes, seconds: seconds)
+    //    }
+    // Which is why the following implementation exists
+    
+    /// Returns a (days, hours, minutes, seconds) tuple representing the
+    /// time remaining between the instance and a target date.
+    /// Not for exact use. For example:
+    ///
+    /// ```
+    /// let test = Date.now.addingTimeInterval(5.days + 3.hours + 2.minutes + 10.seconds)
+    /// print(Date.now.offsets(to: test))
+    /// // prints (5, 3, 2, 10 or possibly 9)
+    /// ```
+    public func offsets(to date: Date) -> (days: Int, hours: Int, minutes: Int, seconds: Int) {
+        var ti = Int(floor(date.interval + 0.5 - self.interval)) // 0.5 secs for rounding
+        let seconds = ti % 60; ti = ti / 60
+        let minutes = ti % 60; ti = ti / 60
+        let hours = ti % 24; ti = ti / 24
+        let days = ti
+        return (days: days, hours: hours, minutes: minutes, seconds: seconds)
+    }
+}
+
+// Date component retrieval
+// Some of these are entirely pointless but I have included all components
+public extension Date {
+    /// Returns instance's year component
+    public var year: Int { return Date.sharedCalendar.component(.year, from: self) }
+    /// Returns instance's month component
+    public var month: Int { return Date.sharedCalendar.component(.month, from: self) }
+    /// Returns instance's day component
+    public var day: Int { return Date.sharedCalendar.component(.day, from: self) }
+    /// Returns instance's hour component
+    public var hour: Int { return Date.sharedCalendar.component(.hour, from: self) }
+    /// Returns instance's minute component
+    public var minute: Int { return Date.sharedCalendar.component(.minute, from: self) }
+    /// Returns instance's second component
+    public var second: Int { return Date.sharedCalendar.component(.second, from: self) }
+    
+    /// Returns instance's weekday component
+    public var weekday: Int { return Date.sharedCalendar.component(.weekday, from: self) }
+    /// Returns instance's weekdayOrdinal component
+    public var weekdayOrdinal: Int { return Date.sharedCalendar.component(.weekdayOrdinal, from: self) }
+    /// Returns instance's weekOfMonth component
+    public var weekOfMonth: Int { return Date.sharedCalendar.component(.weekOfMonth, from: self) }
+    /// Returns instance's weekOfYear component
+    public var weekOfYear: Int { return Date.sharedCalendar.component(.weekOfYear, from: self) }
+    
+    /// Returns instance's yearForWeekOfYear component
+    public var yearForWeekOfYear: Int { return Date.sharedCalendar.component(.yearForWeekOfYear, from: self) }
+    
+    /// Returns instance's quarter component
+    public var quarter: Int { return Date.sharedCalendar.component(.quarter, from: self) }
+    
+    /// Returns instance's nanosecond component
+    public var nanosecond: Int { return Date.sharedCalendar.component(.nanosecond, from: self) }
+    /// Returns instance's (meaningless) era component
+    public var era: Int { return Date.sharedCalendar.component(.era, from: self) }
+    /// Returns instance's (meaningless) calendar component
+    public var calendar: Int { return Date.sharedCalendar.component(.calendar, from: self) }
+    /// Returns instance's (meaningless) timeZone component.
+    public var timeZone: Int { return Date.sharedCalendar.component(.timeZone, from: self) }
+}
+
+// Utility
+public extension Date {
+    /// Return the nearest hour using a 24 hour clock
+    public var nearestHour: Int { return (self.offset(.minute, 30)).hour }
+    
+    /// Return the nearest minute
+    public var nearestMinute: Int { return (self.offset(.second, 30)).minute }
+}
+
 // Canonical dates
 extension Date {
     
@@ -186,11 +326,15 @@ extension Date {
     /// Returns true if this date is the same date as yesterday for the user's preferred calendar
     public var isYesterday: Bool { return Date.sameDate(self, Date.yesterday) }
     
+    /// Returns the start of the instance's week of year for user's preferred calendar
+    public var startOfWeek: Date {
+        let components = self.allComponents
+        let startOfWeekComponents = DateComponents(weekOfYear: components.weekOfYear, yearForWeekOfYear: components.yearForWeekOfYear)
+        return Date.sharedCalendar.date(from: startOfWeekComponents) ?? self
+    }
     /// Returns the start of the current week of year for user's preferred calendar
     public static var thisWeek: Date {
-        let components = Date.now.allComponents
-        let startOfWeek = DateComponents(weekOfYear: components.weekOfYear, yearForWeekOfYear: components.yearForWeekOfYear)
-        return Date.sharedCalendar.date(from: startOfWeek) ?? Date.now
+        return Date.now.startOfWeek
     }
     
     /// Returns the start of next week of year for user's preferred calendar
@@ -205,16 +349,24 @@ extension Date {
     /// Returns true if two weeks likely fall within the same week of year
     /// in the same year, or very nearly the same year
     public static func sameWeek(_ date1: Date, _ date2: Date) -> Bool {
-        // This kind of sucks but it's useful enough to keep around
-        // dates within 1 week of each other more or less, increasing
-        // tolerance for DST changes. Thanks Omni Greg Titus
-        guard abs(date1.interval - date2.interval) <= 8.days else { return false }
-        
-        // Must be same week. 12/31 and 1/1 will both be week "1" if they are in the same week
-        let components1 = date1.allComponents
-        let components2 = date2.allComponents
-        return components1.weekOfYear == components2.weekOfYear
+        let startOfWeek1 = date1.startOfWeek
+        let startOfWeek2 = date2.startOfWeek
+        return startOfWeek1.interval == startOfWeek2.interval
     }
+    
+    /// Returns true if two weeks likely fall within the same week of year
+    /// in the same year, or very nearly the same year
+    //    public static func sameWeek(_ date1: Date, _ date2: Date) -> Bool {
+    //        // This kind of sucks but it's useful enough to keep around
+    //        // dates within 1 week of each other more or less, increasing
+    //        // tolerance for DST changes. Thanks Omni Greg Titus
+    //        guard abs(date1.interval - date2.interval) <= 8.days else { return false }
+    //
+    //        // Must be same week. 12/31 and 1/1 will both be week "1" if they are in the same week
+    //        let components1 = date1.allComponents
+    //        let components2 = date2.allComponents
+    //        return components1.weekOfYear == components2.weekOfYear
+    //    }    
     
     /// Returns true if date likely falls within the current week of year
     public var isThisWeek: Bool { return Date.sameWeek(self, Date.thisWeek) }
@@ -247,114 +399,4 @@ extension Date {
     public var isNextYear: Bool { return Date.sameYear(self, Date.nextYear) }
     /// Returns true if date falls within previous year for the user's preferred calendar
     public var isLastYear: Bool { return Date.sameYear(self, Date.lastYear) }
-}
-
-// Date characteristics
-extension Date {
-    /// Returns true if date falls before current date
-    public var isPast: Bool { return self < Date.now }
-    /// Returns true if date falls after current date
-    public var isFuture: Bool { return self > Date.now }
-    
-    /// Returns true if date falls on typical weekend for Western countries
-    public var isTypicallyWeekend: Bool {
-        let components = self.allComponents
-        return components.weekday == 1 || components.weekday == 7
-    }
-    /// Returns true if date falls on typical workday for Western countries
-    public var isTypicallyWorkday: Bool { return !self.isTypicallyWeekend }
-}
-
-// Date distances
-public extension Date {
-    /// Returns the time interval between two dates
-    static public func interval(_ date1: Date, _ date2: Date) -> TimeInterval {
-        return date2.interval - date1.interval
-    }
-    /// Returns a time interval between the instance and another date
-    public func interval(to date: Date) -> TimeInterval {
-        return Date.interval(self, date)
-    }
-    
-    /// Returns the distance in component units between two dates using the user's preferred calendar
-    static public func distance(_ date1: Date, to date2: Date, component: Calendar.Component) -> Int {
-        let startingDateComponent = Date.sharedCalendar.component(component, from: date1)
-        let endingDateComponent = Date.sharedCalendar.component(component, from: date2)
-        return endingDateComponent - startingDateComponent
-    }
-    
-    /// Returns the distance in component units between the instance and another date
-    public func distance(to date: Date, component: Calendar.Component) -> Int {
-        return Date.distance(self, to: date, component: component)
-    }
-    
-    /// Returns the number of days between the instance and a given date. May be negative
-    public func days(to date: Date) -> Int { return distance(to: date, component: .day) }
-    /// Returns the number of hours between the instance and a given date. May be negative
-    public func hours(to date: Date) -> Int { return distance(to: date, component: .hour) }
-    /// Returns the number of minutes between the instance and a given date. May be negative
-    public func minutes(to date: Date) -> Int { return distance(to: date, component: .minute) }
-    /// Returns the number of seconds between the instance and a given date. May be negative
-    public func seconds(to date: Date) -> Int { return distance(to: date, component: .second) }
-    
-    /// Returns a (days, hours, minutes, seconds) tuple representing the
-    /// time remaining between the instance and a target date.
-    /// Not for exact use. For example:
-    ///
-    /// ```
-    /// let test = Date.now.addingTimeInterval(5.days + 3.hours + 2.minutes + 10.seconds)
-    /// print(Date.now.offsets(to: test))
-    /// // prints (5, 3, 2, 10 or possibly 9)
-    /// ```
-    public func offsets(to date: Date) -> (days: Int, hours: Int, minutes: Int, seconds: Int) {
-        var ti = Int(floor(date.interval - self.interval))
-        let seconds = ti % 60; ti = ti / 60
-        let minutes = ti % 60; ti = ti / 60
-        let hours = ti % 24; ti = ti / 24
-        let days = ti
-        return (days: days, hours: hours, minutes: minutes, seconds: seconds)
-    }
-}
-
-// Date component retrieval
-// Some of these are entirely pointless but I have included all components
-public extension Date {
-    /// Returns instance's era component
-    public var era: Int { return Date.sharedCalendar.component(.era, from: self) }
-    /// Returns instance's year component
-    public var year: Int { return Date.sharedCalendar.component(.year, from: self) }
-    /// Returns instance's month component
-    public var month: Int { return Date.sharedCalendar.component(.month, from: self) }
-    /// Returns instance's day component
-    public var day: Int { return Date.sharedCalendar.component(.day, from: self) }
-    /// Returns instance's hour component
-    public var hour: Int { return Date.sharedCalendar.component(.hour, from: self) }
-    /// Returns instance's minute component
-    public var minute: Int { return Date.sharedCalendar.component(.minute, from: self) }
-    /// Returns instance's second component
-    public var second: Int { return Date.sharedCalendar.component(.second, from: self) }
-    /// Returns instance's weekday component
-    public var weekday: Int { return Date.sharedCalendar.component(.weekday, from: self) }
-    /// Returns instance's weekdayOrdinal component
-    public var weekdayOrdinal: Int { return Date.sharedCalendar.component(.weekdayOrdinal, from: self) }
-    /// Returns instance's quarter component
-    public var quarter: Int { return Date.sharedCalendar.component(.quarter, from: self) }
-    /// Returns instance's weekOfMonth component
-    public var weekOfMonth: Int { return Date.sharedCalendar.component(.weekOfMonth, from: self) }
-    /// Returns instance's weekOfYear component
-    public var weekOfYear: Int { return Date.sharedCalendar.component(.weekOfYear, from: self) }
-    /// Returns instance's yearForWeekOfYear component
-    public var yearForWeekOfYear: Int { return Date.sharedCalendar.component(.yearForWeekOfYear, from: self) }
-    /// Returns instance's nanosecond component
-    public var nanosecond: Int { return Date.sharedCalendar.component(.nanosecond, from: self) }
-    /// Returns instance's (meaningless) calendar component
-    public var calendar: Int { return Date.sharedCalendar.component(.calendar, from: self) }
-    /// Returns instance's (meaningless) timeZone component.
-    public var timeZone: Int { return Date.sharedCalendar.component(.timeZone, from: self) }
-}
-
-// Utility
-public extension Date {
-    /// Return the nearest hour using a 24 hour clock
-    public var nearestHour: Int { return (self.offset(.minute, 30)).hour }
 }
