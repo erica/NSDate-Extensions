@@ -51,7 +51,6 @@ public extension Int {
 
 public extension Date {
     public static var dateComponents: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second, .nanosecond]
-    
     public static var allComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second, .weekday, .weekdayOrdinal, .quarter, .weekOfMonth, .weekOfYear, .yearForWeekOfYear, .nanosecond, .calendar, .timeZone]
     
     public var components: DateComponents { return Date.sharedCalendar.dateComponents(Date.dateComponents, from: self) }
@@ -96,7 +95,7 @@ public extension Date {
     public static var tomorrow: Date { return Date.today.offset(component: .day, count: 1) }
     public static var yesterday: Date { return Date.today.offset(component: .day, count: -1) }
     
-    public var endOfDay: Date { return self.tomorrow.startOfDay - 1.seconds }
+    public var endOfDay: Date { return self.tomorrow.startOfDay.offset(component: .second, count: -1) }
     public static var endOfToday: Date { return Date.now.endOfDay }
     
     public static func sameDate(_ date1: Date, _ date2: Date) -> Bool {
