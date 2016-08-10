@@ -11,6 +11,73 @@ extension Date {
     public static var sharedCalendar = NSCalendar.autoupdatingCurrent
 }
 
+// Subscripting
+extension DateComponents {
+    /// Adds date component subscripting
+    subscript(component: Calendar.Component) -> Int? {
+        switch component {
+        case .era: return self.era
+        case .year: return self.year
+        case .month: return self.month
+        case .day: return self.day
+        case .hour: return self.hour
+        case .minute: return self.minute
+        case .second: return self.second
+        case .weekday: return self.weekday
+        case .weekdayOrdinal: return self.weekdayOrdinal
+        case .quarter: return self.quarter
+        case .weekOfMonth: return self.weekOfMonth
+        case .weekOfYear: return self.weekOfYear
+        case .yearForWeekOfYear: return self.yearForWeekOfYear
+        case .nanosecond: return self.nanosecond
+            // case .calendar: return self.calendar
+        // case .timeZone: return self.timeZone
+        default: return nil
+        }
+    }
+}
+
+// Date component retrieval
+// Some of these are entirely pointless but I have included all components
+public extension Date {
+    /// Returns instance's year component
+    public var year: Int { return Date.sharedCalendar.component(.year, from: self) }
+    /// Returns instance's month component
+    public var month: Int { return Date.sharedCalendar.component(.month, from: self) }
+    /// Returns instance's day component
+    public var day: Int { return Date.sharedCalendar.component(.day, from: self) }
+    /// Returns instance's hour component
+    public var hour: Int { return Date.sharedCalendar.component(.hour, from: self) }
+    /// Returns instance's minute component
+    public var minute: Int { return Date.sharedCalendar.component(.minute, from: self) }
+    /// Returns instance's second component
+    public var second: Int { return Date.sharedCalendar.component(.second, from: self) }
+    
+    /// Returns instance's weekday component
+    public var weekday: Int { return Date.sharedCalendar.component(.weekday, from: self) }
+    /// Returns instance's weekdayOrdinal component
+    public var weekdayOrdinal: Int { return Date.sharedCalendar.component(.weekdayOrdinal, from: self) }
+    /// Returns instance's weekOfMonth component
+    public var weekOfMonth: Int { return Date.sharedCalendar.component(.weekOfMonth, from: self) }
+    /// Returns instance's weekOfYear component
+    public var weekOfYear: Int { return Date.sharedCalendar.component(.weekOfYear, from: self) }
+    
+    /// Returns instance's yearForWeekOfYear component
+    public var yearForWeekOfYear: Int { return Date.sharedCalendar.component(.yearForWeekOfYear, from: self) }
+    
+    /// Returns instance's quarter component
+    public var quarter: Int { return Date.sharedCalendar.component(.quarter, from: self) }
+    
+    /// Returns instance's nanosecond component
+    public var nanosecond: Int { return Date.sharedCalendar.component(.nanosecond, from: self) }
+    /// Returns instance's (meaningless) era component
+    public var era: Int { return Date.sharedCalendar.component(.era, from: self) }
+    /// Returns instance's (meaningless) calendar component
+    public var calendar: Int { return Date.sharedCalendar.component(.calendar, from: self) }
+    /// Returns instance's (meaningless) timeZone component.
+    public var timeZone: Int { return Date.sharedCalendar.component(.timeZone, from: self) }
+}
+
 // Formatters and Strings
 public extension Date {
     /// Returns the current time as a Date instance
@@ -170,28 +237,30 @@ public extension Date {
         return Date.interval(self, date)
     }
     
-    /// Returns the distance *in component units* between two dates
+    /// Returns the distance between two dates
     /// using the user's preferred calendar
-    /// - Warning: Component math only. For example, the distance in day
-    ///   between Jan 1 and Mar 13 is 12 days
     /// e.g.
-    ///
     /// ```
     /// let date1 = Date.shortDateFormatter.date(from: "1/1/16")!
     /// let date2 = Date.shortDateFormatter.date(from: "3/13/16")!
-    /// Date.distance(date1, to: date2, component: .day) // 12
+    /// Date.distance(date1, to: date2, component: .day) // 72
     /// ```
+    /// - Warning: Returns 0 for bad components rather than crashing
     static public func distance(_ date1: Date, to date2: Date, component: Calendar.Component) -> Int {
-        let startingDateComponent = Date.sharedCalendar.component(component, from: date1)
-        let endingDateComponent = Date.sharedCalendar.component(component, from: date2)
-        return endingDateComponent - startingDateComponent
+        return Date.sharedCalendar.dateComponents([component], from: date1, to: date2)[component] ?? 0
     }
     
-    /// Returns the distance *in component units* between the instance and another date
+    /// Returns the distance between the instance and another date
     /// using the user's preferred calendar
-    /// - Warning: Component math only
+    /// e.g.
+    /// ```
+    /// let date1 = Date.shortDateFormatter.date(from: "1/1/16")!
+    /// let date2 = Date.shortDateFormatter.date(from: "3/13/16")!
+    /// date1.distance(to: date2, component: .day) // 72
+    /// ```
+    /// - Warning: Returns 0 for bad components rather than crashing
     public func distance(to date: Date, component: Calendar.Component) -> Int {
-        return Date.distance(self, to: date, component: component)
+        return Date.sharedCalendar.dateComponents([component], from: self, to: date)[component] ?? 0
     }
     
     /// Returns the number of days between the instance and a given date. May be negative
@@ -203,17 +272,6 @@ public extension Date {
     /// Returns the number of seconds between the instance and a given date. May be negative
     public func seconds(to date: Date) -> Int { return distance(to: date, component: .second) }
     
-    // This implementation *does not* return the numbers you're looking for
-    //
-    //    public func offsets(to date: Date) -> (days: Int, hours: Int, minutes: Int, seconds: Int) {
-    //        let days = self.distance(to: date, component: .day)
-    //        let hours = self.distance(to: date, component: .hour)
-    //        let minutes = self.distance(to: date, component: .minute)
-    //        let seconds = self.distance(to: date, component: .second)
-    //        return (days: days, hours: hours, minutes: minutes, seconds: seconds)
-    //    }
-    // Which is why the following implementation exists
-    
     /// Returns a (days, hours, minutes, seconds) tuple representing the
     /// time remaining between the instance and a target date.
     /// Not for exact use. For example:
@@ -221,57 +279,21 @@ public extension Date {
     /// ```
     /// let test = Date.now.addingTimeInterval(5.days + 3.hours + 2.minutes + 10.seconds)
     /// print(Date.now.offsets(to: test))
-    /// // prints (5, 3, 2, 10 or possibly 9)
+    /// // prints (5, 3, 2, 10 or possibly 9 but rounded up)
     /// ```
+    ///
+    /// - Warning: returns 0 for any error when fetching component
     public func offsets(to date: Date) -> (days: Int, hours: Int, minutes: Int, seconds: Int) {
-        var ti = Int(floor(date.interval + 0.5 - self.interval)) // 0.5 secs for rounding
-        let seconds = ti % 60; ti = ti / 60
-        let minutes = ti % 60; ti = ti / 60
-        let hours = ti % 24; ti = ti / 24
-        let days = ti
-        return (days: days, hours: hours, minutes: minutes, seconds: seconds)
+        let components = Date.sharedCalendar
+            .dateComponents([.day, .hour, .minute, .second],
+                            from: self, to: date.addingTimeInterval(0.5)) // round up
+        return (
+            days: components[.day] ?? 0,
+            hours: components[.hour] ?? 0,
+            minutes: components[.minute] ?? 0,
+            seconds: components[.second] ?? 0
+        )
     }
-}
-
-// Date component retrieval
-// Some of these are entirely pointless but I have included all components
-public extension Date {
-    /// Returns instance's year component
-    public var year: Int { return Date.sharedCalendar.component(.year, from: self) }
-    /// Returns instance's month component
-    public var month: Int { return Date.sharedCalendar.component(.month, from: self) }
-    /// Returns instance's day component
-    public var day: Int { return Date.sharedCalendar.component(.day, from: self) }
-    /// Returns instance's hour component
-    public var hour: Int { return Date.sharedCalendar.component(.hour, from: self) }
-    /// Returns instance's minute component
-    public var minute: Int { return Date.sharedCalendar.component(.minute, from: self) }
-    /// Returns instance's second component
-    public var second: Int { return Date.sharedCalendar.component(.second, from: self) }
-    
-    /// Returns instance's weekday component
-    public var weekday: Int { return Date.sharedCalendar.component(.weekday, from: self) }
-    /// Returns instance's weekdayOrdinal component
-    public var weekdayOrdinal: Int { return Date.sharedCalendar.component(.weekdayOrdinal, from: self) }
-    /// Returns instance's weekOfMonth component
-    public var weekOfMonth: Int { return Date.sharedCalendar.component(.weekOfMonth, from: self) }
-    /// Returns instance's weekOfYear component
-    public var weekOfYear: Int { return Date.sharedCalendar.component(.weekOfYear, from: self) }
-    
-    /// Returns instance's yearForWeekOfYear component
-    public var yearForWeekOfYear: Int { return Date.sharedCalendar.component(.yearForWeekOfYear, from: self) }
-    
-    /// Returns instance's quarter component
-    public var quarter: Int { return Date.sharedCalendar.component(.quarter, from: self) }
-    
-    /// Returns instance's nanosecond component
-    public var nanosecond: Int { return Date.sharedCalendar.component(.nanosecond, from: self) }
-    /// Returns instance's (meaningless) era component
-    public var era: Int { return Date.sharedCalendar.component(.era, from: self) }
-    /// Returns instance's (meaningless) calendar component
-    public var calendar: Int { return Date.sharedCalendar.component(.calendar, from: self) }
-    /// Returns instance's (meaningless) timeZone component.
-    public var timeZone: Int { return Date.sharedCalendar.component(.timeZone, from: self) }
 }
 
 // Utility
