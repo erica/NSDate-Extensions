@@ -346,7 +346,7 @@ extension Date {
     /// Returns true if this date is the same date as tomorrow for the user's preferred calendar
     public var isTomorrow: Bool { return Date.sharedCalendar.isDateInTomorrow(self) }
     /// Returns true if this date is the same date as yesterday for the user's preferred calendar
-    public var isYesterday: Bool { return Date.sharedCalendar.isDateInTomorrow(self) }
+    public var isYesterday: Bool { return Date.sharedCalendar.isDateInYesterday(self) }
     
     /// Returns the start of the instance's week of year for user's preferred calendar
     public var startOfWeek: Date {
