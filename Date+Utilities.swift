@@ -284,9 +284,7 @@ public extension Date {
     ///
     /// - Warning: returns 0 for any error when fetching component
     public func offsets(to date: Date) -> (days: Int, hours: Int, minutes: Int, seconds: Int) {
-        let components = Date.sharedCalendar
-            .dateComponents([.day, .hour, .minute, .second],
-                            from: self, to: date.addingTimeInterval(0.5)) // round up
+        let components = Date.sharedCalendar.dateComponents([.day, .hour, .minute, .second], from: self, to: date.addingTimeInterval(0.5)) // round up
         return (
             days: components.day ?? 0,
             hours: components.hour ?? 0,
