@@ -51,11 +51,11 @@ public extension Int {
 
 public extension Date {
     public static var dateComponents: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second, .nanosecond]
-    
     public static var allComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second, .weekday, .weekdayOrdinal, .quarter, .weekOfMonth, .weekOfYear, .yearForWeekOfYear, .nanosecond, .calendar, .timeZone]
 
     public var components: DateComponents { return Date.sharedCalendar.dateComponents(Date.dateComponents, from: self) }
     public var allComponents: DateComponents { return Date.sharedCalendar.dateComponents(Date.allComponents, from: self) }
+    
     public var interval: TimeInterval { return self.timeIntervalSinceReferenceDate }
     
     public static var sharedCalendar = NSCalendar.autoupdatingCurrent
