@@ -59,7 +59,7 @@ public extension Date {
     
     public static var sharedCalendar = NSCalendar.autoupdatingCurrent
     
-    public func offset(component: Calendar.Component, count: Int) -> Date {
+    public func offset(_ component: Calendar.Component, _ count: Int) -> Date {
         var newComponent: DateComponents = DateComponents(second: 0)
         switch component {
         case .era: newComponent = DateComponents(era: count)
@@ -88,14 +88,14 @@ public extension Date {
         return Date.sharedCalendar.date(from: midnight) ?? self
     }
     public var today: Date { return self.startOfDay }
-    public var tomorrow: Date { return self.today.offset(component: .day, count: 1) }
-    public var yesterday: Date { return self.today.offset(component: .day, count: -1) }
+    public var tomorrow: Date { return self.today.offset(.day, 1) }
+    public var yesterday: Date { return self.today.offset(.day, -1) }
     
     public static var today: Date { return Date.now.startOfDay }
-    public static var tomorrow: Date { return Date.today.offset(component: .day, count: 1) }
-    public static var yesterday: Date { return Date.today.offset(component: .day, count: -1) }
+    public static var tomorrow: Date { return Date.today.offset(.day, 1) }
+    public static var yesterday: Date { return Date.today.offset(.day, -1) }
     
-    public var endOfDay: Date { return self.tomorrow.startOfDay.offset(component: .second, count: -1) }
+    public var endOfDay: Date { return self.tomorrow.startOfDay.offset(.second, -1) }
     public static var endOfToday: Date { return Date.now.endOfDay }
     
     public static func sameDate(_ date1: Date, _ date2: Date) -> Bool {
@@ -118,10 +118,10 @@ public extension Date {
         return Date.sharedCalendar.date(from: startOfWeek) ?? Date.now
     }
     
-    public var nextWeek: Date { return self.offset(component: .weekOfYear, count: 1) }
-    public var lastWeek: Date { return self.offset(component: .weekOfYear, count: -1) }
-    public static var nextWeek: Date { return Date.now.offset(component: .weekOfYear, count: 1) }
-    public static var lastWeek: Date { return Date.now.offset(component: .weekOfYear, count: -1) }
+    public var nextWeek: Date { return self.offset(.weekOfYear, 1) }
+    public var lastWeek: Date { return self.offset(.weekOfYear, -1) }
+    public static var nextWeek: Date { return Date.now.offset(.weekOfYear, 1) }
+    public static var lastWeek: Date { return Date.now.offset(.weekOfYear, -1) }
     
     // This kind of sucks but it's useful enough to keep around
     public static func sameWeek(_ date1: Date, _ date2: Date) -> Bool {
@@ -145,8 +145,8 @@ public extension Date {
         return Date.sharedCalendar.date(from: theyear) ?? Date.now
     }
     
-    public static var nextYear: Date { return thisYear.offset(component: .year, count: 1) }
-    public static var lastYear: Date { return thisYear.offset(component: .year, count: -1) }
+    public static var nextYear: Date { return thisYear.offset(.year, 1) }
+    public static var lastYear: Date { return thisYear.offset(.year, -1) }
     
     public static func sameYear(_ date1: Date, _ date2: Date) -> Bool {
         let components1 = date1.allComponents
@@ -216,5 +216,5 @@ public extension Date {
 }
 
 public extension Date {
-    public var nearestHour: Int { return (self.offset(component: .minute, count: 30)).hour }
+    public var nearestHour: Int { return (self.offset(.minute, 30)).hour }
 }
