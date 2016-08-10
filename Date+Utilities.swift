@@ -313,13 +313,8 @@ extension Date {
     public static var endOfToday: Date { return Date.now.endOfDay }
     
     /// Determines whether two days share the same day, month, and year
-    /// using the active localized calendar.
     public static func sameDate(_ date1: Date, _ date2: Date) -> Bool {
-        let components1 = date1.components
-        let components2 = date2.components
-        return components1.year  == components2.year &&
-            components1.month == components2.month &&
-            components1.day   == components2.day
+        return date1.startOfDay == date2.startOfDay
     }
     
     /// Returns true if this date is the same date as today for the user's preferred calendar
@@ -377,9 +372,7 @@ extension Date {
     
     /// Returns true if two dates share the same year component
     public static func sameYear(_ date1: Date, _ date2: Date) -> Bool {
-        let components1 = date1.allComponents
-        let components2 = date2.allComponents
-        return components1.year == components2.year
+        return date1.allComponents.year == date2.allComponents.year
     }
     
     /// Returns true if date falls within this year for the user's preferred calendar
