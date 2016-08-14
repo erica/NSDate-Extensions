@@ -14,7 +14,7 @@ extension Date {
 // Subscripting
 extension DateComponents {
     /// Adds date component subscripting
-    subscript(component: Calendar.Component) -> Int? {
+    public subscript(component: Calendar.Component) -> Int? {
         switch component {
         case .era: return self.era
         case .year: return self.year
@@ -178,10 +178,12 @@ public extension Date {
     /// Extracts all date components for date
     public var allComponents: DateComponents { return Date.sharedCalendar.dateComponents(Date.allComponents, from: self) }
     
-    /// Offset a date by n calendar components. For example
+    /// Offset a date by n calendar components. Can be functionally chained
+    /// For example:
     ///
     /// ```
     /// let afterThreeDays = date.offset(.day, 3)
+    /// print(Date.now.offset(.day, 3).offset(.hour, 1).fullString)
     /// ```
     ///
     /// Not all components or offsets are useful
@@ -211,6 +213,35 @@ public extension Date {
         // If offset is not possible, return unmodified date
         return Date.sharedCalendar.date(byAdding: newComponent, to: self) ?? self
     }
+}
+
+// Alternative offset approach that constructs date components for offset duty
+// I find this more verbose, less readable, less functional but your mileage may vary
+extension DateComponents {
+    /// Returns components populated by n years
+    public static func years(_ count: Int) -> DateComponents { return DateComponents(year: count) }
+    /// Returns components populated by n months
+    public static func months(_ count: Int) -> DateComponents { return DateComponents(month: count) }
+    /// Returns components populated by n days
+    public static func days(_ count: Int) -> DateComponents { return DateComponents(day: count) }
+    /// Returns components populated by n hours
+    public static func hours(_ count: Int) -> DateComponents { return DateComponents(hour: count) }
+    /// Returns components populated by n minutes
+    public static func minutes(_ count: Int) -> DateComponents { return DateComponents(minute: count) }
+    /// Returns components populated by n seconds
+    public static func seconds(_ count: Int) -> DateComponents { return DateComponents(second: count) }
+    /// Returns components populated by n nanoseconds
+    public static func nanoseconds(_ count: Int) -> DateComponents { return DateComponents(nanosecond: count) }
+}
+
+/// Performs calendar math using date components as alternative
+/// to `offset(_: Calendar.Component, _: Int)`
+/// e.g.
+/// ```swift
+/// print((Date.now + DateComponents.days(3) + DateComponents.hours(1)).fullString)
+/// ```
+public func +(lhs: Date, rhs: DateComponents) -> Date {
+    return Date.sharedCalendar.date(byAdding: rhs, to: lhs)! // yes force unwrap. sue me.
 }
 
 // Date characteristics
