@@ -1,6 +1,6 @@
 import Foundation
 
-// General Thanks: AshFurrow, sstreza, Scott Lawrence, Kevin Ballard, NoOneButMe, Avi`, August Joki. Emanuele Vulcano, jcromartiej, Blagovest Dachev, Matthias Plappert,  Slava Bushtruk, Ali Servet Donmez, Ricardo1980, pip8786, Danny Thuerin, Dennis Madsen
+// Thanks: AshFurrow, sstreza, Scott Lawrence, Kevin Ballard, NoOneButMe, Avi`, August Joki, Lily Vulcano, jcromartiej, Blagovest Dachev, Matthias Plappert,  Slava Bushtruk, Ali Servet Donmez, Ricardo1980, pip8786, Danny Thuerin, Dennis Madsen, Greg Titus, Jim Morrison, aclark, Marcin Krzyzanowski, dmitrydims, Sebastian Celis, Seyithan Teymur, 
 
 // Base utility
 extension Date {
@@ -183,7 +183,7 @@ public extension Date {
     ///
     /// ```
     /// let afterThreeDays = date.offset(.day, 3)
-    /// print(Date.now.offset(.day, 3).offset(.hour, 1).fullString)
+    /// print(Date().offset(.day, 3).offset(.hour, 1).fullString)
     /// ```
     ///
     /// Not all components or offsets are useful
@@ -238,7 +238,7 @@ extension DateComponents {
 /// to `offset(_: Calendar.Component, _: Int)`
 /// e.g.
 /// ```swift
-/// print((Date.now + DateComponents.days(3) + DateComponents.hours(1)).fullString)
+/// print((Date() + DateComponents.days(3) + DateComponents.hours(1)).fullString)
 /// ```
 public func +(lhs: Date, rhs: DateComponents) -> Date {
     return Date.sharedCalendar.date(byAdding: rhs, to: lhs)! // yes force unwrap. sue me.
@@ -247,9 +247,9 @@ public func +(lhs: Date, rhs: DateComponents) -> Date {
 // Date characteristics
 extension Date {
     /// Returns true if date falls before current date
-    public var isPast: Bool { return self < Date.now }
+    public var isPast: Bool { return self < Date() }
     /// Returns true if date falls after current date
-    public var isFuture: Bool { return self > Date.now }
+    public var isFuture: Bool { return self > Date() }
     
     /// Returns true if date falls on typical weekend
     public var isTypicallyWeekend: Bool {
@@ -310,8 +310,8 @@ public extension Date {
     /// Not for exact use. For example:
     ///
     /// ```
-    /// let test = Date.now.addingTimeInterval(5.days + 3.hours + 2.minutes + 10.seconds)
-    /// print(Date.now.offsets(to: test))
+    /// let test = Date().addingTimeInterval(5.days + 3.hours + 2.minutes + 10.seconds)
+    /// print(Date().offsets(to: test))
     /// // prints (5, 3, 2, 10 or possibly 9 but rounded up)
     /// ```
     ///
@@ -356,7 +356,7 @@ extension Date {
     public var yesterday: Date { return self.today.offset(.day, -1) }
     
     /// Returns today's date at the midnight starting the day
-    public static var today: Date { return Date.now.startOfDay }
+    public static var today: Date { return Date().startOfDay }
     /// Returns tomorrow's date at the midnight starting the day
     public static var tomorrow: Date { return Date.today.offset(.day, 1) }
     /// Returns yesterday's date at the midnight starting the day
@@ -365,7 +365,7 @@ extension Date {
     /// Returns a date representing a second before midnight at the end of the day
     public var endOfDay: Date { return self.tomorrow.startOfDay.offset(.second, -1) }
     /// Returns a date representing a second before midnight at the end of today
-    public static var endOfToday: Date { return Date.now.endOfDay }
+    public static var endOfToday: Date { return Date().endOfDay }
     
     /// Determines whether two days share the same date
     public static func sameDate(_ date1: Date, _ date2: Date) -> Bool {
@@ -388,7 +388,7 @@ extension Date {
     }
     /// Returns the start of the current week of year for user's preferred calendar
     public static var thisWeek: Date {
-        return Date.now.startOfWeek
+        return Date().startOfWeek
     }
     
     /// Returns the start of next week of year for user's preferred calendar
@@ -396,9 +396,9 @@ extension Date {
     /// Returns the start of last week of year for user's preferred calendar
     public var lastWeek: Date { return self.offset(.weekOfYear, -1) }
     /// Returns the start of next week of year for user's preferred calendar relative to date
-    public static var nextWeek: Date { return Date.now.offset(.weekOfYear, 1) }
+    public static var nextWeek: Date { return Date().offset(.weekOfYear, 1) }
     /// Returns the start of last week of year for user's preferred calendar relative to date
-    public static var lastWeek: Date { return Date.now.offset(.weekOfYear, -1) }
+    public static var lastWeek: Date { return Date().offset(.weekOfYear, -1) }
     
     /// Returns true if two weeks likely fall within the same week of year
     /// in the same year, or very nearly the same year
@@ -415,10 +415,10 @@ extension Date {
     
     /// Returns the start of year for the user's preferred calendar
     public static var thisYear: Date {
-        let components = Date.now.components
+        let components = Date().components
         let theyear = DateComponents(year: components.year)
         // If offset is not possible, return unmodified date
-        return Date.sharedCalendar.date(from: theyear) ?? Date.now
+        return Date.sharedCalendar.date(from: theyear) ?? Date()
     }
     /// Returns the start of next year for the user's preferred calendar
     public static var nextYear: Date { return thisYear.offset(.year, 1) }
