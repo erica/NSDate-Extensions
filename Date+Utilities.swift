@@ -1,6 +1,6 @@
 import Foundation
 
-// Thanks: AshFurrow, sstreza, Scott Lawrence, Kevin Ballard, NoOneButMe, Avi`, August Joki, Lily Vulcano, jcromartiej, Blagovest Dachev, Matthias Plappert,  Slava Bushtruk, Ali Servet Donmez, Ricardo1980, pip8786, Danny Thuerin, Dennis Madsen, Greg Titus, Jim Morrison, aclark, Marcin Krzyzanowski, dmitrydims, Sebastian Celis, Seyithan Teymur, 
+// Thanks: AshFurrow, sstreza, Scott Lawrence, Kevin Ballard, NoOneButMe, Avi`, August Joki, Lily Vulcano, jcromartiej, Blagovest Dachev, Matthias Plappert,  Slava Bushtruk, Ali Servet Donmez, Ricardo1980, pip8786, Danny Thuerin, Dennis Madsen, Greg Titus, Jim Morrison, aclark, Marcin Krzyzanowski, dmitrydims, Sebastian Celis, Seyithan Teymur,
 
 // Base utility
 extension Date {
@@ -80,9 +80,6 @@ public extension Date {
 
 // Formatters and Strings
 public extension Date {
-    /// Returns the current time as a Date instance
-    public static var now: Date { return Date(timeIntervalSinceNow: 0) }
-    
     /// Returns an ISO 8601 formatter
     public static var iso8601Formatter: DateFormatter = {
         $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
