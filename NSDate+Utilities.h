@@ -25,6 +25,9 @@
 + (NSDate *) dateWithMinutesFromNow: (NSInteger) dMinutes;
 + (NSDate *) dateWithMinutesBeforeNow: (NSInteger) dMinutes;
 
+//elapsed time in readable string format i.e. 3h 45m
++(NSString *)getTimeElapsedStringBetween:(NSDate *)startDate endDate:(NSDate *)endDate;
+
 // Short string utilities
 - (NSString *) stringWithDateStyle: (NSDateFormatterStyle) dateStyle timeStyle: (NSDateFormatterStyle) timeStyle;
 - (NSString *) stringWithFormat: (NSString *) format;

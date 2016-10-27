@@ -80,6 +80,50 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;		
 }
+#pragma mark - Elapsed Time
++(NSString *)getTimeElapsedStringBetween:(NSDate *)startDate endDate:(NSDate *)endDate {
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    
+    NSUInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute;
+    
+    NSDateComponents *components = [gregorian components:unitFlags
+                                                fromDate:startDate
+                                                  toDate:endDate options:0];
+    NSInteger years = [components year];
+    NSInteger months = [components month];
+    NSInteger days = [components day];
+    NSInteger hours = [components hour];
+    NSInteger minutes = [components minute];
+    
+    NSMutableString *elapsedString = [NSMutableString string];
+    
+    if (years > 0)  [elapsedString appendFormat:@"%lu Y",(long)years];
+    if (years > 1)  [elapsedString appendFormat:@" "];
+    if (years > 0)  [elapsedString appendFormat:@" "];
+    
+    if (months > 0) [elapsedString appendFormat:@"%lu M",(long)months];
+    if (months > 1) [elapsedString appendFormat:@" "];
+    if (months > 0) [elapsedString appendFormat:@" "];
+    
+    if (days > 0)   [elapsedString appendFormat:@"%lu D",(long)days];
+    if (days > 1)   [elapsedString appendFormat:@" "];
+    if (days > 0)   [elapsedString appendFormat:@" "];
+    if (months < 1) {
+        if (hours > 0)  [elapsedString appendFormat:@"%lu h",(long)hours];
+        if (hours > 1)  [elapsedString appendFormat:@" "];
+        if (hours > 0)  [elapsedString appendFormat:@" "];
+        if (days < 1) {
+            if (minutes > 0) [elapsedString appendFormat:@"%lu min ",(long)minutes];
+            if (minutes > 1) [elapsedString appendFormat:@" "];
+            if (minutes > 0) [elapsedString appendFormat:@" "];
+        }
+    }
+    
+    return [NSString stringWithString:elapsedString];
+}
+
+
 
 #pragma mark - String Properties
 - (NSString *) stringWithFormat: (NSString *) format
