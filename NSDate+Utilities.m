@@ -81,7 +81,6 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
 	return newDate;		
 }
 #pragma mark - Elapsed Time
-#pragma mark - elasped time
 +(NSString *)getTimeElapsedStringBetween:(NSDate *)startDate endDate:(NSDate *)endDate {
     
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
