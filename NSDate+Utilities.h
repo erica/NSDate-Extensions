@@ -18,6 +18,8 @@
 // Relative dates from the current date
 + (NSDate *) dateTomorrow;
 + (NSDate *) dateYesterday;
++ (NSDate *) dateWithYearsFromNow: (NSInteger) years;
++ (NSDate *) dateWithYearsBeforeNow: (NSInteger) years;
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days;
 + (NSDate *) dateWithDaysBeforeNow: (NSInteger) days;
 + (NSDate *) dateWithHoursFromNow: (NSInteger) dHours;
@@ -83,8 +85,17 @@
 - (NSDate *) dateBySubtractingMinutes: (NSInteger) dMinutes;
 
 // Date extremes
+- (NSDate *) dateAtStartOfHour;
+- (NSDate *) dateAtEndOfHour;
 - (NSDate *) dateAtStartOfDay;
 - (NSDate *) dateAtEndOfDay;
+- (NSDate *) dateAtStartOfWeek;
+- (NSDate *) dateAtEndOfWeek;
+- (NSDate *) dateAtStartOfMonth;
+- (NSDate *) dateAtEndOfMonth;
+- (NSDate *) dateAtStartOfYear;
+- (NSDate *) dateAtEndOfYear;
+
 
 // Retrieving intervals
 - (NSInteger) minutesAfterDate: (NSDate *) aDate;
