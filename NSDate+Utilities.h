@@ -38,6 +38,9 @@
 @property (nonatomic, readonly) NSString *longDateString;
 @property (nonatomic, readonly) NSString *longTimeString;
 
+// Date for time of day
+- (NSDate *) dateBySettingHour:(NSInteger)hour minute:(NSInteger) minute second:(NSInteger)second;
+
 // Comparing dates
 - (BOOL) isEqualToDateIgnoringTime: (NSDate *) aDate;
 
