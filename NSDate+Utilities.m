@@ -227,6 +227,16 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
     return [self isSameMonthAsDate:[[NSDate date] dateByAddingMonths:1]];
 }
 
+- (BOOL) isFirstDayOfMonth
+{
+    return ![self isSameMonthAsDate:[self dateBySubtractingDays:1]];
+}
+
+- (BOOL) isLastDayOfMonth
+{
+    return ![self isSameMonthAsDate:[self dateByAddingDays:1]];
+}
+
 - (BOOL) isSameYearAsDate: (NSDate *) aDate
 {
 	NSDateComponents *components1 = [[NSDate currentCalendar] components:NSYearCalendarUnit fromDate:self];

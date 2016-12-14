@@ -54,6 +54,8 @@
 - (BOOL) isThisMonth;
 - (BOOL) isNextMonth;
 - (BOOL) isLastMonth;
+- (BOOL) isFirstDayOfMonth;
+- (BOOL) isLastDayOfMonth;
 
 - (BOOL) isSameYearAsDate: (NSDate *) aDate;
 - (BOOL) isThisYear;
