@@ -95,6 +95,13 @@
 - (NSInteger) daysBeforeDate: (NSDate *) aDate;
 - (NSInteger)distanceInDaysToDate:(NSDate *)anotherDate;
 
+//Dates round figures
+- (NSDate *) cutOffMillisecond;
+- (NSDate *) cutOffSeconds;
+- (NSDate *) cutOffMinute;
+- (NSDate *) cutOffHour;
+- (NSDate *) cutOffDay;
+
 // Decomposing dates
 @property (readonly) NSInteger nearestHour;
 @property (readonly) NSInteger hour;
